@@ -1,18 +1,27 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { CountryDropdown } from 'react-country-region-selector';
 import store from '../../store';
 import {isEqual} from 'lodash';
 
 import styles from './Profile.module.scss';
-import { saveProfile } from '../../actions/profileActions';
+import { clearProfile, saveProfile } from '../../actions/profileActions';
 import { useHistory } from 'react-router-dom';
 
-const EditProfile = ({ stateProfile }) => {
+const EditProfile = ({ stateProfile, saving }) => {
 
   
   const [ isEqualState, setIsEqualState ] = useState(true)
   const [ formData, setFormData ] = useState(stateProfile)
   const history = useHistory()
+  const contRef = useRef()
+
+
+  useEffect(()=>{
+    setTimeout(()=>{
+      if(contRef.current){contRef.current.classList.remove('zero-opacity')}
+    },100)
+  },[])
+
 
   const {
     avatar,
@@ -36,16 +45,19 @@ const EditProfile = ({ stateProfile }) => {
     } else {
       setIsEqualState(true)
     }
-    
 
   },[formData])
 
+  useEffect(()=>{ if(!saving){setIsEqualState(true)} },[saving])
+
   const handleSubmit = () => {
+    
     store.dispatch( saveProfile({
       ...formData, 
       genres: typeof genres !== "string" ? genres : genres.split(',').map(genre => genre.trim())
       }, history) 
     )
+
   }
 
   const handleChange = (e, arg) => {
@@ -66,7 +78,7 @@ const EditProfile = ({ stateProfile }) => {
   }
 
   return (
-    <div className={`${styles.editProfile} zero-opacity shift-down`}>
+    <div ref={contRef} className={`${styles.editProfile} zero-opacity shift-down`}>
 
         <div className={styles.header}>
           <h2 className="blue">Edit profile</h2>

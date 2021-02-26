@@ -125,10 +125,26 @@ h5>span{
   img{
     height: 200px;
   }
+
+  &.overlay{   
+    z-index: 10;
+    position: absolute;
+    background: #ffffff98;
+    height: 100%;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    img{
+      position: relative;
+      bottom:10%;
+    }
+  }
 }
 
 .zero-opacity{
-  opacity: 1;
+  opacity: 0;
 }
 
 .round-img{

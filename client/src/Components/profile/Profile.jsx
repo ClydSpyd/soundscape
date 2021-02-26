@@ -31,23 +31,30 @@ const Profile = () => {
 
   return (
     <div className={`section-container ${styles.profileContainer}`}>
+
+      { profile.saving && <LoaderDiv propClass="overlay"/> }
+      
       {
 
-        isEdit && !profile.me ?
-        <EditProfile stateProfile={initialProfile} />
-
-      :
-        isEdit && profile.me ?
-        <EditProfile stateProfile={{...profile.me, genres: typeof profile.me.genres === 'string' ? profile.me.genres :  profile.me.genres.join(',')}} />
-      :
 
         profile.loading ?
           <LoaderDiv />
 
+        :
+        isEdit && !profile.me ?
+          <EditProfile 
+            stateProfile={initialProfile} 
+            saving={profile.saving}/>
+
+      :
+        isEdit && profile.me ?
+          <EditProfile 
+            stateProfile={{...profile.me, genres: typeof profile.me.genres === 'string' ? profile.me.genres :  profile.me.genres.join(',')}} 
+            saving={profile.saving}/>
       :
 
         !isNotMe && profile.me ?
-          <EditProfile stateProfile={profile.me} />
+            <EditProfile stateProfile={profile.me} />
       :
 
         isNotMe && profile.profile ?

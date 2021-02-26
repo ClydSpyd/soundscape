@@ -37,6 +37,13 @@ export const getProfile = (profileId) => async dispatch => {
 
 }
 
+
+export const profileSaved = () =>  dispatch => {
+
+  dispatch({ type: "PROFILE_SAVED" })
+}
+
+
 export const saveProfile = (formData, history) => async dispatch => {
   
   console.log('save_profile')
@@ -47,18 +54,23 @@ export const saveProfile = (formData, history) => async dispatch => {
   if(token) setAuthToken(token)
   const body = JSON.stringify( formData )
 
+    dispatch({ 
+      type: "SAVE_PROFILE"
+    })
+
   try {
 
     const res = await axios.post('/api/profile', body, config);
 
     console.log(res)
+    setTimeout(()=>{
+      dispatch({ 
+        type: "PROFILE_SAVED",
+        payload: res.data 
+      })
+    },400)
 
-    dispatch({ 
-      type: "SAVE_PROFILE",
-      payload: formData 
-    })
-
-    history.push("/")
+    // history.push("/")
     
   } catch (err) {
      const errors = err&&err.response ? err.response.data.errors : null;
@@ -73,8 +85,6 @@ export const saveProfile = (formData, history) => async dispatch => {
 
 
 }
-
-
 
 
 export const clearProfile = () =>  dispatch => {

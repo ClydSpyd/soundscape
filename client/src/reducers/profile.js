@@ -3,6 +3,7 @@ const intitialState = {
   profile: null,
   profiles: [],
   loading: true,
+  saving:false,
   error: null
 }
 
@@ -36,8 +37,15 @@ export default function(state=intitialState, action){
     // @@TODO split into 2 actions - request and success. --loading
       return{
         ...state,
+        saving:true
+      }
+    case 'PROFILE_SAVED':
+    // @@TODO split into 2 actions - request and success. --loading
+      return{
+        ...state,
         me:payload,
         loading:false,
+        saving:false,
         // error?
       }
     case 'PROFILE_ERROR':
