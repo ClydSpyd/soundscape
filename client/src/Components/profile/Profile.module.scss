@@ -5,6 +5,7 @@
   align-items: center;
   justify-content: center;
   position: relative;
+  padding: 10px 0;
 }
 
 
@@ -14,7 +15,8 @@
   background-color: white;
   border-radius: 5px;
   margin-bottom: 150px;
-  transition: .3s ease-in-out all;
+  transition: .1s ease-in-out all;
+  position: relative;
 
   .header{
     width: 100%;
@@ -28,23 +30,36 @@
       font-size: 18px;
       padding:3px 50px;
       transition: .5s ease-in-out all;
-
+      opacity: 0.2;
+      padding:6px 50px 9px 50px;
+      border:1px solid grey;
+      color:grey;
+      border-radius: 2px;
+      
       &.activeSave{
         @include solidButton($purple, white, 18px, initial, initial);
-        padding:7px 50px 10px 50px;
         border-radius: 2px;
-        -webkit-animation: pulseBtn 1.5s ease-in-out 1;
-        -moz-animation: pulseBtn 1.5s ease-in-out 1;
-        -ms-animation: pulseBtn 1.5s ease-in-out 1;
-        -o-animation: pulseBtn 1.5s ease-in-out 1;
-        animation: pulseBtn 1.5s ease-in-out 1;
-        animation-delay: 0;
-        animation-iteration-count: infinite;
+        opacity: 1;
+        -webkit-animation: pulseBtn 1.5s ease-in-out infinite;
+        -moz-animation: pulseBtn 1.5s ease-in-out infinite;
+        -ms-animation: pulseBtn 1.5s ease-in-out infinite;
+        -o-animation: pulseBtn 1.5s ease-in-out infinite;
+        animation: pulseBtn 1.5s ease-in-out infinite;
         animation-direction: forward;
-        // border:1px solid $purple;
-        // color: $purple;
       }
     }
+
+    .saved{
+      color: $purple;
+      opacity: 1;
+      border-color: transparent;
+      cursor: none;
+      i{
+        color: $purple;
+        margin-left: 5px;
+      }
+    }
+    
   }
 
   .blockBtns{
@@ -118,6 +133,13 @@
 
     select{
       cursor: pointer;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      background: transparent;
+      background-image: url("data:image/svg+xml;utf8,<svg fill='black' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>");
+      background-repeat: no-repeat;
+      background-position-x: 100%;
+      background-position-y: 5px;
     }
     
     textarea{

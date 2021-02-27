@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { Route, Switch } from 'react-router-dom'
 
 import Landing from './Components/layout/Landing';
@@ -11,28 +11,33 @@ import store from './store'
 import NavBar from './Components/layout/NavBar';
 import Register from './Components/auth/Register';
 import Profile from './Components/profile/Profile';
+import Logout from './Components/auth/Logout';
 
 
 const App= () => {
 
+  const navRef = useRef()
   useEffect(()=>{ store.dispatch(loadUser()) },[])
 
   return (
 
     <>
-      <Switch>
-        <Route exact path="/" component={()=><NavBar landing />} />
+      <Switch> {/* navbar switch  */}
+        <Route exact path="/" component={null} />
         <Route exact path="/login" component={null} />
         <Route exact path="/register" component={null} />
-        <Route exact path="/:section/:section?" component={()=><NavBar />} />
+        <Route path="/:section?" component={()=><NavBar navRef={navRef} />} />
       </Switch>
 
-      <Switch>
+      <Switch> {/* main switch  */}
+
         <Route exact path="/" component={Landing} />
 
         <Route exact path="/login" component={Login} />
+        <Route exact path="/logout" component={Logout} />
         <Route exact path="/register" component={Register} />
-        <PrivateRoute exact path="/profile/:profileParam?" component={Profile} />
+
+        <PrivateRoute exact path="/profile/:profileParam?" component={()=> <Profile navRef={navRef}  />} />
 
         <PrivateRoute exact path="/dashboard" component={Dashboard} />
       </Switch>

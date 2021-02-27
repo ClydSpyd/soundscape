@@ -10,16 +10,16 @@ import { initialProfile } from '../../reducers/defaultProfile';
 
 import styles from './Profile.module.scss';
 
-const Profile = () => {
+const Profile = ({ navRef }) => {
 
   const { profileParam } = useParams()
   const profile = useSelector(state => state.profile)
   const isEdit = profileParam&&profileParam==='edit'
-  const isNotMe = profileParam&&profileParam!=='edit'
+  const isMe = profileParam&&profileParam==='me'
 
   useEffect(()=>{
 
-    if(isNotMe){
+    if(!isMe){
 
       store.dispatch(getProfile(profileParam))
       console.log('fetch user profile')
@@ -43,21 +43,27 @@ const Profile = () => {
         :
         isEdit && !profile.me ?
           <EditProfile 
+            navRef={navRef} 
+            onLeave={()=>window.alert('hemlo')}
             stateProfile={initialProfile} 
+            saved={profile.saved}
             saving={profile.saving}/>
 
       :
         isEdit && profile.me ?
           <EditProfile 
-            stateProfile={{...profile.me, genres: typeof profile.me.genres === 'string' ? profile.me.genres :  profile.me.genres.join(',')}} 
+            navRef={navRef} 
+            onLeave={()=>window.alert('hemlo')}
+            stateProfile={{...profile.me, genres: typeof profile.me.genres === 'string' ? profile.me.genres :  profile.me.genres.join(', ')}} 
+            saved={profile.saved}
             saving={profile.saving}/>
       :
 
-        !isNotMe && profile.me ?
-            <EditProfile stateProfile={profile.me} />
+        isMe && profile.me ?
+            <h6>my profile</h6>
       :
 
-        isNotMe && profile.profile ?
+        !isMe && profile.profile ?
           <h5>success</h5>
       :
 

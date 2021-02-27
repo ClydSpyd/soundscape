@@ -6,11 +6,9 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
 
   const auth = useSelector(state => state.auth)
 
-  // useEffect(()=>{
-  //   console.log(auth)
-  //   console.log(!auth.isAuthenticated)
-  //   console.log(!auth.loading)
-  // },[])
+  useEffect(()=>{
+    console.log(rest)
+  },[])
 
   return (
 

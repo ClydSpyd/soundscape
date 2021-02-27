@@ -4,7 +4,8 @@ const intitialState = {
   profiles: [],
   loading: true,
   saving:false,
-  error: null
+  error: null,
+  saved:null
 }
 
 export default function(state=intitialState, action){
@@ -25,19 +26,22 @@ export default function(state=intitialState, action){
       return{
         ...state,
         me: payload,
-        loading: false
+        loading: false,
+        saved:null
       }
     case 'PROFILE_RETRIEVED':
       return{
         ...state,
         profile: payload,
-        loading: false
+        loading: false,
+        saved:null
       }
     case 'SAVE_PROFILE':
     // @@TODO split into 2 actions - request and success. --loading
       return{
         ...state,
-        saving:true
+        saving:true,
+        saved:null
       }
     case 'PROFILE_SAVED':
     // @@TODO split into 2 actions - request and success. --loading
@@ -46,7 +50,13 @@ export default function(state=intitialState, action){
         me:payload,
         loading:false,
         saving:false,
+        saved:true
         // error?
+      }
+    case 'PROFILE_UNSAVED':
+      return{
+        ...state,
+        saved:false
       }
     case 'PROFILE_ERROR':
       console.log('profile error')
@@ -54,7 +64,8 @@ export default function(state=intitialState, action){
         ...state,
         profile:null,
         loading:false,
-        error: payload.data.msg
+        error: payload.data.msg,
+        saved:null
       }
 
     default:

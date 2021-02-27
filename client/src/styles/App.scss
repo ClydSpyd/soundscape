@@ -92,12 +92,12 @@ h5>span{
 
 .shift-down{
   position: relative;
-  top:80px;
+  top:70px;
   height: calc(100vh - 140px);
 }
 .shift-up{
   position: relative;
-  top:-80px;
+  top:-70px;
 }
 
 .full-width{
@@ -201,12 +201,24 @@ h5>span{
 }
 
 .btn-purple{
-  @include mainButton($purple, white, 14px, 30px, 150px);
+  @include solidButton($purple, white, 14px, 30px, 150px);
   margin: 0 5px;
+  *{color: red}
 }
 
 .btn-blue{
   @include solidButton($turquiose, white, 14px, 30px, 150px);
+  margin: 0 5px
+}
+
+.btn-purple_hollow{
+  @include mainButton($purple, white, 14px, 30px, 150px);
+  margin: 0 5px;
+  *{color: red}
+}
+
+.btn-blue_hollow{
+  @include mainButton($turquiose, white, 14px, 30px, 150px);
   margin: 0 5px
 }
 
@@ -225,7 +237,7 @@ h5>span{
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0.7rem 2rem;
+  padding: 0.2rem 2rem;
   position: fixed;
   z-index: 1;
   width: 100%;
@@ -265,12 +277,23 @@ a.nav_active{
   pointer-events: none;
 }
 
+
+h4.nav-logo{
+  // background: url('../assets/img/logos/soundscape-multi_colour.png') no-repeat, left center;
+  background: url('../assets/img/logos/soundscape-white_multi_colour_noBorder.png') no-repeat, left center;
+  line-height: 50px;
+  background-size: 50px;
+  padding-left: 55px;
+}
+
+
 /* Landing Page, login page */
 .principal-container,
 .login {
   position: relative;
   background: url('../assets/img/showcase_img.jpg') no-repeat bottom center/cover;
   height: 100vh;
+  padding:10px 0;
 }
 
 .landing-inner, 

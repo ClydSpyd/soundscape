@@ -2,10 +2,10 @@
   @mixin mainButton ($color, $bg, $font-size, $height, $width) {
     height:$height;
     width:$width;
-    color:$color;
+    color:$color !important;
     font-size: $font-size;
     // background: url($imgUrl);
-    background-color: transparent;
+    background-color: $bg;
     border:1px solid $color;
     text-align: center;
     line-height: $height;
@@ -19,7 +19,7 @@
     text-decoration: none;
     
     &:hover{
-      color:$bg;
+      color:$bg !important;
       // background: url($hovImgUrl);
       background-color: $color;
       background-repeat: no-repeat;

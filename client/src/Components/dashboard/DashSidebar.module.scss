@@ -1,11 +1,14 @@
 @import '../../styles/App.scss';
 
 .dashSidebar{
-  min-width:250px;
+  width:250px;
   position: fixed;
-  width: fit-content;
   box-sizing:border-box;
   margin:0;
+
+  *{
+    text-align: center;
+  }
 
   .header{
     display: flex;
@@ -44,7 +47,7 @@
       margin:10px auto 5px auto;
       a{
         // @include mainButton(grey, white, 12px, 20px, 60px)
-        color: $purple;
+        color: $turquiose;
         font-size: 12px;
         text-align: center;
         width: 65px;

@@ -1,5 +1,5 @@
 import React from 'react';
-import spinner_bars from '../../assets/loaders/spinner_bars.svg'
+import spinner_bars from '../../assets/loaders/spinner_bars3.svg'
 
 const LoaderDiv = ({ propClass }) => {
 

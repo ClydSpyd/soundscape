@@ -25,7 +25,7 @@ export const dummyDicoveries = [
     genre: 'Prog',
     likes: '866',
     text: 'Oceansize were an English rock band from Manchester, formed in 1998. The band consisted of Mike Vennart, Steve Durose, Richard "Gambler" Ingram, Mark Heron and Jon Ellis for the majority of its career, with Steve Hodson replacing Ellis on bass guitar in 2006.',
-    img:'https://lh3.googleusercontent.com/proxy/4LjIQYzy_FwmyQRDPVH-5-1lO5eWrwiTnvjXVOjHd1upYr7MeIAGlK_6zgGohUcWNKUEPPI0kYAe4zg2kb8S6-TpWsbz9sr5W8EaDzdcSSKHtICGFIznpHw23DKK5g'
+    img:'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQhZgqZCjeZJBw8ui1QCap_pRy6P_iwtkBmVA&usqp=CAU'
   },
   {
     title: 'The Black Keys',

@@ -2,16 +2,19 @@ import React, { useState, useEffect, useRef } from 'react';
 import { CountryDropdown } from 'react-country-region-selector';
 import store from '../../store';
 import {isEqual} from 'lodash';
+import { Prompt } from 'react-router'
 
 import styles from './Profile.module.scss';
-import { clearProfile, saveProfile } from '../../actions/profileActions';
+import { saveProfile } from '../../actions/profileActions';
 import { useHistory } from 'react-router-dom';
+import BlockNavigationModal from '../utility_comps/BlockNavigationModal';
 
-const EditProfile = ({ stateProfile, saving }) => {
+const EditProfile = ({ stateProfile, saving, saved, navRef }) => {
 
   
   const [ isEqualState, setIsEqualState ] = useState(true)
   const [ formData, setFormData ] = useState(stateProfile)
+  const [ navConfirm, setNavConfirm ] = useState(false)
   const history = useHistory()
   const contRef = useRef()
 
@@ -20,6 +23,7 @@ const EditProfile = ({ stateProfile, saving }) => {
     setTimeout(()=>{
       if(contRef.current){contRef.current.classList.remove('zero-opacity')}
     },100)
+
   },[])
 
 
@@ -48,7 +52,11 @@ const EditProfile = ({ stateProfile, saving }) => {
 
   },[formData])
 
-  useEffect(()=>{ if(!saving){setIsEqualState(true)} },[saving])
+  useEffect(()=>{ 
+    if(!saving){
+      setIsEqualState(true);
+    } 
+  },[saving])
 
   const handleSubmit = () => {
     
@@ -61,6 +69,8 @@ const EditProfile = ({ stateProfile, saving }) => {
   }
 
   const handleChange = (e, arg) => {
+
+    store.dispatch({type:'PROFILE_UNSAVED'})
 
     arg ?
       setFormData({ //update location comp state
@@ -79,10 +89,40 @@ const EditProfile = ({ stateProfile, saving }) => {
 
   return (
     <div ref={contRef} className={`${styles.editProfile} zero-opacity shift-down`}>
+          <Prompt
+            when={!isEqualState}
+            message={(location, action) => {
+              setNavConfirm({vis: true, path: location.pathname})
+              return false 
+            }}
+          />
+
+         {navConfirm.vis &&  
+            <BlockNavigationModal 
+              refs={[navRef]}
+              path={navConfirm.path} 
+              cancel={()=>setNavConfirm({...navConfirm, vis:false})}
+              permit={()=>setIsEqualState(true)}
+              text={{
+                warning:"You have unsaved changes, are you sure you wish to leave the page?"
+              }}/>
+          }
 
         <div className={styles.header}>
           <h2 className="blue">Edit profile</h2>
-          <div onClick={handleSubmit} className={`${styles.saveBtn} ${!isEqualState ? styles.activeSave:''}`}> save </div>
+          <div onClick={handleSubmit} 
+          className={
+            `${styles.saveBtn} 
+            ${!isEqualState ? styles.activeSave:''}
+            ${saved ? styles.saved:''}
+            `}> 
+           { 
+           !saved ? 'save' :
+              <>
+                profile updated{' '}<i class="fas fa-check"></i>
+              </> 
+          }
+          </div>
         </div>
 
           <div className={styles.blockBtns}>
@@ -119,6 +159,9 @@ const EditProfile = ({ stateProfile, saving }) => {
               <option value="Pop Idol">Pop Idol</option>
               <option value="Raver" >Raver</option>
               <option value="Dancing Queen" >Dancing Queen</option>
+              <option value="Connosieur" >Connosieur</option>
+              <option value="Prog Snob" >Prog Snob</option>
+              <option value="Experimentor">Experimentor</option>
               <option value="Soul Man">Soul Man</option>
               <option value="Punk">Punk</option>
             </select>
