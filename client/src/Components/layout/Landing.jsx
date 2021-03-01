@@ -33,8 +33,8 @@ const Landing = () => {
           <h3 className="medium purple">Welcome to Soundscape Online</h3>
           <h1 className="m-0">A PLACE FOR MUSIC LOVERS</h1>
           <div className="flex-center">
-            <Link to="/login" className="btn-blue_hollow">Sign in</Link>
-            <Link to="/register" className="btn-purple_hollow">Create account</Link>
+            <Link to="/login" className="btn-purple_hollow">Sign in</Link>
+            <Link to="/register" className="btn-blue_hollow">Create account</Link>
           </div>
         </div>
       </div>

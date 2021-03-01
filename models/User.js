@@ -14,7 +14,8 @@ const UserSchema = new mongoose.Schema({
     required:true
   },
   avatar:{
-    type: String
+    type: String,
+    default:'https://soundscapeuseravatars.s3-eu-west-1.amazonaws.com/default_profile_pic.png'
   },
   date:{
     type: Date,

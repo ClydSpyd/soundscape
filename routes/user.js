@@ -36,13 +36,13 @@ router.post('/', [
       })
     }
     
-    const avatar = gravatar.url(email, {
-      s: '200', //size - default size
-      r: 'pg', // rating - no rude stuff
-      d: 'mm' // default - default user icon
-    })
+    // const avatar = gravatar.url(email, {
+    //   s: '200', //size - default size
+    //   r: 'pg', // rating - no rude stuff
+    //   d: 'mm' // default - default user icon
+    // })
 
-    user = new User({name, email, avatar, password}) 
+    user = new User({name, email, password}) 
 
     const salt = await bcrypt.genSalt(10) 
     user.password = await bcrypt.hash(password, salt) 

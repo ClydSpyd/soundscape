@@ -6,7 +6,7 @@ import styles from './BlockNavigationContainer.module.scss'
 
 const BlockNavigationModal = ({
   path, 
-  permit:bewbws, 
+  permit, 
   cancel, 
   text:{
     warning="Are you sure you wish to leave this page?", 
@@ -22,15 +22,14 @@ const BlockNavigationModal = ({
   
  
   const navigate = () => {
-    bewbws()
+    permit()
     setTimeout(()=>{ history.push(path) },50)
   }
 
-  useOutsideClick([...refs, contRef], () => { //close modules if click outside
+  useOutsideClick([...refs, contRef], () => { //close modal if click outside
     cancel()
   })
 
-  
   useEffect(()=>{
 
     setTimeout(()=>{
@@ -39,7 +38,6 @@ const BlockNavigationModal = ({
   },[])
   
   useEffect(()=>{
-    console.log(history[1])
 
     !contRef.current.classList.contains(styles.shakeBlockModal) && 
       addAnimation(contRef, styles.shakeBlockModal,500)

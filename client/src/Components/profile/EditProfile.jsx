@@ -5,7 +5,7 @@ import {isEqual} from 'lodash';
 import { Prompt } from 'react-router'
 
 import styles from './Profile.module.scss';
-import { saveProfile } from '../../actions/profileActions';
+import { saveProfile, uploadImage } from '../../actions/profileActions';
 import { useHistory } from 'react-router-dom';
 import BlockNavigationModal from '../utility_comps/BlockNavigationModal';
 
@@ -129,6 +129,9 @@ const EditProfile = ({ stateProfile, saving, saved, navRef }) => {
             <div className={`${styles.block} ${styles.pic}`}>
               <i className="far fa-user"></i>
               <p>Change profile pic</p>
+              <form action="/profile" method="post" enctype="multipart/form-data">
+                <input onChange={(e)=>  store.dispatch(uploadImage(e)) }  type="file" name="avatar" />
+              </form>
             </div>
             <div className={`${styles.block} ${styles.project}`}>
               <i className="fas fa-plus"></i>

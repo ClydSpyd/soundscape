@@ -45,6 +45,7 @@ export default function(state=intitialState, action){
       }
     case 'PROFILE_SAVED':
     // @@TODO split into 2 actions - request and success. --loading
+    console.log(payload)
       return{
         ...state,
         me:payload,

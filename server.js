@@ -1,5 +1,8 @@
 const express = require("express")
 const connectDB = require("./config/db")
+const multer = require('multer');
+const storage = multer.memoryStorage();
+const fileUpload = multer({storage});
 
 const app = express()
 
@@ -8,6 +11,7 @@ connectDB()
 
 // Init middleware
 app.use(express.json({ extended: false })) //body parser
+app.use('/*', fileUpload.single('avatar'));
 
 // define routes
 app.use('/api/users', require('./routes/user'))

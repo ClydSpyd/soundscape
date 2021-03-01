@@ -1,18 +1,18 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import profilePic from '../../assets/img/profile_pic.png'
+import profilePic from '../../assets/img/default_profile_pic.png'
 
 import styles from './DashSidebar.module.scss';
 
-const DashSidebar = ({user:{name}}) => {
+const DashSidebar = ({user:{name, avatar}}) => {
 
   const profile = useSelector(state => state.profile)
 
   return profile && !profile.loading && (
     <div className={styles.dashSidebar}>
       <div className={styles.header}>
-        <img src={profilePic} alt="Profile pic"/>
+        <img src={avatar} alt="Profile pic"/>
         <h3>{name}</h3>
 
         {

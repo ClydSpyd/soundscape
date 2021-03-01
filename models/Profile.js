@@ -5,10 +5,6 @@ const ProfileSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'user'
   },
-  avatar:{
-    type: String,
-    default:'https://e7.pngegg.com/pngimages/185/383/png-clipart-computer-icons-waveform-sound-wave-text-logo.png'
-  },
   location:{
     type: String
   },

@@ -1,12 +1,11 @@
 const express = require("express")
 const router = express.Router()
-const {
-  check,
-  validationResult
-} = require("express-validator")
+const multer = require('multer');
+const upload = multer({dest: "uploads/"});
 const Profile = require("../models/Profile")
 const config = require("config")
 const authMiddle = require("../middleware/authMiddle")
+let AWS = require('aws-sdk')
 
 
 // @route     GET api/profile
@@ -81,12 +80,12 @@ router.post('/', authMiddle, async (req, res) => {
   if (instagram) profileObject.instagram = instagram
   if (twitter) profileObject.twitter = twitter
 
-  console.log(profileObject)
-
+  
   try {
-
+    
     let profile = await Profile.findOne({ user: req.user })
-
+    
+    console.log(profile)
     if(profile){
       //update
       profile = await Profile.findOneAndUpdate({ user: req.user }, { $set: profileObject }, { new: true })
@@ -143,4 +142,101 @@ router.get('/:user_id', authMiddle, async (req, res) => {
 
 })
 
-module.exports = router
+router.post('/update_user', authMiddle, async (req, res) => {
+
+
+  // const update = _.assign({ "iAm": 'baloo' });
+
+  
+  
+  try {
+
+    const user = await User.findById(req.user)
+
+    user.name='Baboo Clydesdale'
+
+    await user.save() 
+
+    if(user){
+      res.json({user})
+    }
+    
+  } catch (error) {
+   
+    console.error(error.message)
+
+    res.status(500).send('server error')
+
+  }
+})
+
+
+router.post('/upload_image', [authMiddle, upload.single("avatar")],async (req,res) => {
+
+    const s3Client = new AWS.S3({
+      accessKeyId:config.get("AWSAccessKeyId"),
+      secretAccessKey:config.get("AWSSecretKey"),
+      region:"eu-west-1"
+    });
+
+    const uploadParams = {
+      Bucket: "soundscapeuseravatars",
+      Key: req.file.originalname,
+      Body: req.file.buffer
+    };
+
+
+    s3Client.upload(uploadParams, async (err, data) => {
+        if (err) {
+          
+          return res.status(500).json({error:"Error -> " + err});
+
+        } else {
+
+          const user = await User.findById(req.user)
+
+          user.avatar=data.Location
+
+          await user.save() 
+
+          res.json({
+            URL:data.Location,
+            user: user
+          });
+        }
+    });
+});
+
+module.exports = router;
+
+
+
+
+// {
+//   "Version":"2012-10-17",
+//   "Statement":[
+//     {
+//       "Sid":"PublicRead",
+//       "Effect":"Allow",
+//       "Principal": "*",
+//       "Action":["s3:GetObject","s3:GetObjectVersion"],
+//       "Resource":["arn:aws:s3:::DOC-EXAMPLE-BUCKET/*"]
+//     }
+//   ]
+// }
+
+
+// {
+//   "Version": "2008-10-17",
+//   "Statement": [
+//       {
+//           "Sid": "AddPerm",
+//           "Effect": "Allow",
+//           "Principal": {
+//               "AWS": "*"
+//           },
+//           "Action": "s3:GetObject",
+//           "Resource": "arn:aws:s3:::soundscapeuseravatars/*"
+//       }
+//   ]
+// }

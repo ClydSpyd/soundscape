@@ -63,10 +63,11 @@ export const saveProfile = (formData, history) => async dispatch => {
     const res = await axios.post('/api/profile', body, config);
 
     console.log(res)
+    console.log(res.data)
     setTimeout(()=>{
       dispatch({ 
         type: "PROFILE_SAVED",
-        payload: res.data 
+        payload: res.data.profile 
       })
     },400)
 
@@ -80,6 +81,32 @@ export const saveProfile = (formData, history) => async dispatch => {
     dispatch({
       type:  'PROFILE_EDIT_FAILURE'
     })
+
+  }
+
+
+}
+
+
+
+
+export const uploadImage = (e) => async dispatch => {
+  
+
+  const data = new FormData();
+  const file = e.target.files[0];
+  data.append("avatar", file);
+
+  const config =  { headers: { 'Content-Type': 'multipart/form-data' } }
+
+  try {
+
+    const res = await axios.post('/api/profile/upload_image', data, config);
+
+    console.log(res)
+    
+  } catch (err) {
+    console.log(err)
 
   }
 
