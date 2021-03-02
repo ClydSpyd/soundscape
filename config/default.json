@@ -1,7 +1,0 @@
-{
-  "mongoURI": "mongodb+srv://Dave:Mendoza5819@cluster0.lkypi.mongodb.net/myFirstDatabase?retryWrites=true&w=majority",
-  "jwtSecret": "mysecrettoken",
-  "AWSAccessKeyId":"AKIAJZSSQUEW7B2AF7BA",
-  "AWSSecretKey":"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"
-}
-
