@@ -6,12 +6,19 @@ const fileUpload = multer({storage});
 
 const app = express()
 
+
+// allow cross-origin requests
+const cors = require('cors');
+app.use(cors());
+app.options('*', cors());
+
+
 //connect db
 connectDB()
 
 // Init middleware
 app.use(express.json({ extended: false })) //body parser
-app.use('/*', fileUpload.single('avatar'));
+app.use('/*', fileUpload.single('image'));
 
 // define routes
 app.use('/api/users', require('./routes/user'))

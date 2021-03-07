@@ -1,6 +1,6 @@
 import React from 'react';
 
-import styles from './Dashboard.module.scss';
+import styles from './DiscoveryItem.module.scss';
 
 const DiscoveryItem = ({item:{title, genre, likes, img, text}}) => {
 

@@ -92,12 +92,12 @@ h5>span{
 
 .shift-down{
   position: relative;
-  top:70px;
+  top:80px;
   height: calc(100vh - 140px);
 }
 .shift-up{
   position: relative;
-  top:-70px;
+  top:-80px;
 }
 
 .full-width{
@@ -200,26 +200,51 @@ h5>span{
   margin: 2.5rem,;
 }
 
-.btn-purple{
-  @include solidButton($purple, white, 14px, 30px, 150px);
+.btn-purple--padding{
+  @include solidButton($purple, white, 14px, 30px, fit-content);
+  padding: 0 15px;
   margin: 0 5px;
   *{color: red}
 }
 
+.btn-blue--padding{
+  @include solidButton($turquiose, white, 14px, 30px, fit-content);
+  padding: 0 15px;
+  margin: 0 5px
+}
+.btn-purple{
+  @include solidButton($purple, white, 14px, 30px, 150px);
+  margin: 0 5px;
+  
+  &.sml{
+    width:95px;
+  };
+}
+
 .btn-blue{
   @include solidButton($turquiose, white, 14px, 30px, 150px);
-  margin: 0 5px
+  margin: 0 5px;
+
+  &.sml{
+    width:95px;
+  }
 }
 
 .btn-purple_hollow{
   @include mainButton($purple, white, 14px, 30px, 150px);
   margin: 0 5px;
   *{color: red}
+  &.sml{
+    width:125px;
+  }
 }
 
 .btn-blue_hollow{
   @include mainButton($turquiose, white, 14px, 30px, 150px);
-  margin: 0 5px
+  margin: 0 5px;
+  &.sml{
+    width:125px;
+  }
 }
 
 .close-circle{
@@ -248,6 +273,18 @@ h5>span{
   &.landing{
     background-color: rgba(157, 157, 157, 0.659);
   }
+
+  &.clear{
+    background-color: transparent;
+  }
+
+  &.dark{
+    opacity: .95;background: rgb(0,0,0);
+    background: linear-gradient(180deg, rgba(0,0,0,1) 30%, rgba(180,158,151,0) 100%);
+
+  }
+
+
 }
 
 .navbar ul {
@@ -264,7 +301,8 @@ h5>span{
   margin: 0 0.25rem;
 }
 
-.navbar ul>li>a:hover {
+// .navbar ul>li>a:hover {
+.navbar a:hover {
   text-decoration: underline !important;
 }
 

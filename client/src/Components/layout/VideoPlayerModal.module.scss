@@ -1,0 +1,67 @@
+@import '../../styles/App.scss';
+
+.videoPlayerModal{
+  
+  .modalOverlay{
+    position: fixed;
+    z-index: 250;
+    width:100%;
+    top:0;
+    left:0;
+    height: 100vh;
+    min-height: 700px;
+    background-color: rgba(0, 0, 0, 0.2);
+    -webkit-backdrop-filter: blur(5px);
+    backdrop-filter: blur(5px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .modalContent{
+    
+    position: relative;
+    background-color: grey;
+    text-align: left;
+    box-sizing: border-box;
+    padding: 30px 40px;
+    border-radius: 15px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width:760px;
+    height: 428px;
+    background-color: transparent;
+    background: url('../../assets/loaders/spinner-sml--fast.svg') no-repeat center;
+    background-size: 65px;
+    position: relative;
+  
+  
+    .closePlayer{
+      position: absolute;
+      cursor: pointer;
+      top:-10px;
+      right: -15px;
+  
+      img{
+        width: 25px;
+        height: 25px;
+        object-fit: contain;
+      }
+    }
+  
+    p{
+      font-size: 15px;
+      color:white;
+      position: absolute;
+      bottom: -45px;
+      left: 48%;
+      transition: translateX(-50%);
+      cursor: pointer;
+      font-weight: 500;
+      font-family: 'Sofia pro';
+  
+    }
+  }
+}

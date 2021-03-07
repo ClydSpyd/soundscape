@@ -5,7 +5,7 @@
   align-items: center;
   justify-content: center;
   position: relative;
-  padding: 10px 0;
+  // padding: 10px 0;
 }
 
 
@@ -84,6 +84,11 @@
       position: relative;
       bottom: 0;
       transition:.1s ease-in-out all;
+      margin: 0 10px;
+
+      input{
+        display: none;
+      }
 
       p{
         font-size: 18px;
@@ -96,15 +101,27 @@
           
         }
       }
-
-      &:nth-of-type(2){
-        margin: 0 10px;
-      }
-
+      
       i{
         font-size: 30px;
         color: $turquiose;
         margin-bottom: 10px;
+
+        // &.sml{
+        //   font-size: 10px;
+        // }
+      }
+
+      .saved{
+        font-size: 14px;
+        color: $purple;
+        position: absolute;
+        bottom:35px;
+
+        i{
+          font-size: 15px;
+          color: $purple;
+        }
       }
     }
   }

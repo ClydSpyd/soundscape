@@ -7,7 +7,9 @@ export const getProfile = (profileId) => async dispatch => {
   const token = localStorage.getItem('t')
   if(token)(setAuthToken(token))
 
-  const fetchUrl = profileId ? `/api/profile/${profileId}` : '/api/profile'
+  console.log(profileId)
+
+  const fetchUrl = profileId ? `http://localhost:5000/api/profile/${profileId}` : 'http://localhost:5000/api/profile'
 
   console.log(fetchUrl)
 
@@ -40,7 +42,7 @@ export const getProfile = (profileId) => async dispatch => {
 
 export const profileSaved = () =>  dispatch => {
 
-  dispatch({ type: "PROFILE_SAVED" })
+  dispatch({ type: "SAVED_NO_PAYLOAD" })
 }
 
 
@@ -60,14 +62,14 @@ export const saveProfile = (formData, history) => async dispatch => {
 
   try {
 
-    const res = await axios.post('/api/profile', body, config);
+    const res = await axios.post('http://localhost:5000/api/profile', body, config);
 
     console.log(res)
     console.log(res.data)
     setTimeout(()=>{
       dispatch({ 
         type: "PROFILE_SAVED",
-        payload: res.data.profile 
+        payload: res.data 
       })
     },400)
 
@@ -90,20 +92,34 @@ export const saveProfile = (formData, history) => async dispatch => {
 
 
 
-export const uploadImage = (e) => async dispatch => {
+export const uploadImage = (e, callback) => async dispatch => {
   
+
+  dispatch({ 
+    type: "SAVE_PROFILE"
+  })
 
   const data = new FormData();
   const file = e.target.files[0];
-  data.append("avatar", file);
+  data.append("image", file);
 
   const config =  { headers: { 'Content-Type': 'multipart/form-data' } }
 
   try {
 
-    const res = await axios.post('/api/profile/upload_image', data, config);
+    const res = await axios.post('http://localhost:5000/api/profile/upload_image', data, config);
 
-    console.log(res)
+    dispatch({ 
+      type: "PROFILE_LOADED"
+    })
+    setTimeout(()=>{
+      dispatch({ 
+        type: "USER_LOADED",
+        payload: res.data.user 
+      })
+    },300)
+
+    callback(true)
     
   } catch (err) {
     console.log(err)
@@ -133,7 +149,7 @@ export const clearProfile = () =>  dispatch => {
 //   try {
     
 
-//     const res = await axios.post('/api/profile', body, config);
+//     const res = await axios.post('http://localhost:5000/api/profile', body, config);
 
 //     console.log(res)
 //     dispatch({

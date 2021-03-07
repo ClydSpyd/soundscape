@@ -22,6 +22,13 @@ export default function(state=intitialState, action){
         ...state,
         loading:true
      }
+     
+    case 'PROFILE_LOADED':
+     return{  
+        ...state,
+        loading:false,
+        saving:false
+     }
     case 'MY_PROFILE_RETRIEVED':
       return{
         ...state,
@@ -37,15 +44,12 @@ export default function(state=intitialState, action){
         saved:null
       }
     case 'SAVE_PROFILE':
-    // @@TODO split into 2 actions - request and success. --loading
       return{
         ...state,
         saving:true,
         saved:null
       }
     case 'PROFILE_SAVED':
-    // @@TODO split into 2 actions - request and success. --loading
-    console.log(payload)
       return{
         ...state,
         me:payload,
@@ -54,6 +58,13 @@ export default function(state=intitialState, action){
         saved:true
         // error?
       }
+      case "SAVED_NO_PAYLOAD":
+        return{
+          ...state,
+          loading:false,
+          saving:false,
+          saved:true
+        }
     case 'PROFILE_UNSAVED':
       return{
         ...state,

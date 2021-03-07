@@ -1,0 +1,71 @@
+@import '../../styles/App.scss';
+
+.essentialItem{
+  height: 200px;
+  width: 250px;
+  flex-grow: 1;
+  // flex-basis: 40%;
+  box-sizing:border-box;
+  position: relative;
+  cursor: pointer;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border:5px solid $turquiose;
+  bottom: 0;
+  transition: .1s ease-in-out all;
+  margin: 3px;
+
+
+  &:hover{
+    h3{
+      top:-50px;
+      left:-100%;
+    }
+    h5{
+      bottom:-50px;
+      right: -100%;
+    }
+    i{
+      opacity: 1;
+    }
+  }
+
+  i{
+    font-size:50px;
+    color:$turquiose;
+    opacity: .3;
+  }
+
+  h3{
+    font-style: italic;
+    font-weight: 700;
+    width: fit-content;
+    background-color: $turquiose;
+    color: white;
+    padding: 0px 10px 5px 25px;
+    position: absolute;
+    left: -5px;
+    top:0;
+    z-index: 10;
+    transition: .3s ease-in-out all;
+    font-size: 17px;
+  }
+
+  h5{
+    font-style: italic;
+    font-weight: 500;
+    width: fit-content;
+    background-color: $turquiose;
+    color: white;
+    padding: 5px 25px 0px 10px;
+    position: absolute;
+    bottom: 0;
+    right: -5px;
+    z-index: 1;
+    transition: .3s ease-in-out all;
+    font-size: 14px;
+  }
+
+}

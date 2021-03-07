@@ -15,6 +15,7 @@ const EditProfile = ({ stateProfile, saving, saved, navRef }) => {
   const [ isEqualState, setIsEqualState ] = useState(true)
   const [ formData, setFormData ] = useState(stateProfile)
   const [ navConfirm, setNavConfirm ] = useState(false)
+  const [ picSaved, setPicSaved ] = useState(false)
   const history = useHistory()
   const contRef = useRef()
 
@@ -126,13 +127,20 @@ const EditProfile = ({ stateProfile, saving, saved, navRef }) => {
         </div>
 
           <div className={styles.blockBtns}>
-            <div className={`${styles.block} ${styles.pic}`}>
+            <label className={`${styles.block} ${styles.pic}`}>
               <i className="far fa-user"></i>
               <p>Change profile pic</p>
               <form action="/profile" method="post" enctype="multipart/form-data">
-                <input onChange={(e)=>  store.dispatch(uploadImage(e)) }  type="file" name="avatar" />
+                <input onChange={(e)=>  store.dispatch(uploadImage(e, setPicSaved)) }  type="file" name="image" />
               </form>
-            </div>
+              {
+                picSaved &&
+                <div className={`${styles.saved}`}>
+                  profile pic updated{' '}<i className={styles.sml} class="fas fa-check"></i>
+                </div> 
+              }
+
+            </label>
             <div className={`${styles.block} ${styles.project}`}>
               <i className="fas fa-plus"></i>
               <p>Add Project</p>

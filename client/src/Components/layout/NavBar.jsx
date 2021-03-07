@@ -4,7 +4,7 @@ import { Link, NavLink, useHistory } from 'react-router-dom'
 import { logout } from '../../actions/authActions'
 import store from '../../store'
 
-const NavBar = ({landing, navRef}) => {
+const NavBar = ({landing, navRef, clear, dark}) => {
 
   const auth = useSelector(state => state.auth)
   const history = useHistory()
@@ -33,7 +33,7 @@ const NavBar = ({landing, navRef}) => {
   :
   
     (
-      <nav ref={navRef} className={`${'navbar bg-dark'} ${landing && 'landing'}`}>
+      <nav ref={navRef} className={`${'navbar bg-dark'} ${landing && 'landing'}  ${clear && 'clear'} ${dark && 'dark'}`}>
 
         <Link to="/">
           <h4 className={"nav-logo"}>soundscape</h4>

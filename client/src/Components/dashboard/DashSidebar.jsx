@@ -31,11 +31,11 @@ const DashSidebar = ({user:{name, avatar}}) => {
               <p className="purple-hover">34 posts</p>
 
               <div className={styles.links}>
-                <Link to="/profile/edit">profile</Link>
+                <Link to="/profile/edit">edit profile</Link>
                 <div className={styles.break} />
                 <Link to="/settings">settings</Link>
-                <div className={styles.break} />
-                <Link to="/alerts">alerts (0)</Link>
+                {/* <div className={styles.break} />
+                <Link to="/alerts">alerts (0)</Link> */}
               </div>
             </>
         }
@@ -43,6 +43,7 @@ const DashSidebar = ({user:{name, avatar}}) => {
       </div>
       <div className={styles.linkBlock}> Discover Music </div>
       <div className={styles.linkBlock}> Browse Forums </div>
+      <div className={styles.linkBlock}> Find Groups </div>
       <div className={styles.linkBlock}> Browse Users </div>
       <div className={styles.linkBlock}> Create New Post </div>
     </div>

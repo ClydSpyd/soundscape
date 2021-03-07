@@ -9,18 +9,20 @@ import CreateProfile from './CreateProfile';
 import { initialProfile } from '../../reducers/defaultProfile';
 
 import styles from './Profile.module.scss';
+import ViewProfile from './ViewProfile';
 
-const Profile = ({ navRef }) => {
+const Profile = ({ navRef, setShowVideo }) => {
 
   const { profileParam } = useParams()
   const profile = useSelector(state => state.profile)
+  const user = useSelector(state => state.auth.user)
   const isEdit = profileParam&&profileParam==='edit'
   const isMe = profileParam&&profileParam==='me'
 
   useEffect(()=>{
 
     if(!isMe){
-
+      console.log('NOT ME')
       store.dispatch(getProfile(profileParam))
       console.log('fetch user profile')
       console.log(profileParam)
@@ -44,7 +46,6 @@ const Profile = ({ navRef }) => {
         isEdit && !profile.me ?
           <EditProfile 
             navRef={navRef} 
-            onLeave={()=>window.alert('hemlo')}
             stateProfile={initialProfile} 
             saved={profile.saved}
             saving={profile.saving}/>
@@ -53,22 +54,30 @@ const Profile = ({ navRef }) => {
         isEdit && profile.me ?
           <EditProfile 
             navRef={navRef} 
-            onLeave={()=>window.alert('hemlo')}
-            stateProfile={{...profile.me, genres: typeof profile.me.genres === 'string' ? profile.me.genres :  profile.me.genres.join(', ')}} 
+            stateProfile={{...profile.me, genres: typeof !profile.me.genres ? '' : profile.me.genres === 'string' ? profile.me.genres :  profile.me.genres.join(', ')}} 
             saved={profile.saved}
             saving={profile.saving}/>
       :
 
         isMe && profile.me ?
-            <h6>my profile</h6>
+            <ViewProfile 
+              isMe
+              setShowVideo={setShowVideo}
+              displayProfile={profile.me} />
+              
       :
-
+              
+        !isMe && !profile.profile ?
+          <h5>no profile found for this user</h5>
+      :
+              
         !isMe && profile.profile ?
-          <h5>success</h5>
+            <ViewProfile 
+            setShowVideo={setShowVideo}
+            displayProfile={profile.profile} />
       :
 
-        profile.error &&
-          <h5>{profile.error}</h5>
+        <h5>{profile.error}</h5>
 
       }
     </div>
