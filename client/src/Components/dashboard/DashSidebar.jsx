@@ -2,15 +2,17 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import profilePic from '../../assets/img/default_profile_pic.png'
+import useSticky from '../../helpers/useSticky'
 
 import styles from './DashSidebar.module.scss';
 
 const DashSidebar = ({user:{name, avatar}}) => {
 
   const profile = useSelector(state => state.profile)
+  const { isSticky } = useSticky()
 
   return profile && !profile.loading && (
-    <div className={styles.dashSidebar}>
+    <div className={`${styles.dashSidebar} ${isSticky && styles.sticky}`}>
       <div className={styles.header}>
         <img src={avatar} alt="Profile pic"/>
         <h3>{name}</h3>
@@ -42,7 +44,7 @@ const DashSidebar = ({user:{name, avatar}}) => {
         
       </div>
       <div className={styles.linkBlock}> Discover Music </div>
-      <div className={styles.linkBlock}> Browse Forums </div>
+      <Link to="/forums" className={styles.linkBlock}> Browse Forums </Link>
       <div className={styles.linkBlock}> Find Groups </div>
       <div className={styles.linkBlock}> Browse Users </div>
       <div className={styles.linkBlock}> Create New Post </div>

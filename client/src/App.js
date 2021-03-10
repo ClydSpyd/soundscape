@@ -13,6 +13,7 @@ import Register from './Components/auth/Register';
 import Profile from './Components/profile/Profile';
 import Logout from './Components/auth/Logout';
 import VideoPlayerModal from './Components/layout/VideoPlayerModal';
+import Forums from './Components/forums/Forums';
 
 
 const App= () => {
@@ -31,9 +32,9 @@ const App= () => {
         <Route exact path="/" component={null} />
         <Route exact path="/login" component={null} />
         <Route exact path="/register" component={null} />
-        <Route exact path="/profile/edit" component={()=><NavBar navRef={navRef} />} />
-        <Route path="/profile/:id" component={()=><NavBar clear navRef={navRef} />} />
-        <Route path="/:section?" component={()=><NavBar navRef={navRef} />} />
+        <Route exact path="/profile/edit" component={()=><NavBar profile navRef={navRef} />} />
+        <Route path="/profile/:id" component={()=><NavBar profile clear navRef={navRef} />} />
+        <Route path="/:section?" component={()=><NavBar profile navRef={navRef} />} />
       </Switch>
 
       <Switch> {/* main switch  */}
@@ -43,6 +44,7 @@ const App= () => {
         <Route exact path="/login" component={Login} />
         <Route exact path="/logout" component={Logout} />
         <Route exact path="/register" component={Register} />
+        <Route exact path="/forums" component={Forums} />
 
         <PrivateRoute exact path="/profile/:profileParam?" component={()=> 
           <Profile 

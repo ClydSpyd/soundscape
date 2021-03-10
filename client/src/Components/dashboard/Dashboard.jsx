@@ -35,7 +35,7 @@ const Dashboard = () => {
                 </div>
               </div>
 
-              <h5>Top Posts <span><Link to="/posts">more</Link></span></h5>
+              <h5>Top Posts <span><Link to="/forums">more</Link></span></h5>
               <DashboardPosts />
 
             </div>

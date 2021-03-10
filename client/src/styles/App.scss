@@ -92,12 +92,12 @@ h5>span{
 
 .shift-down{
   position: relative;
-  top:80px;
+  top:70px;
   height: calc(100vh - 140px);
 }
 .shift-up{
   position: relative;
-  top:-80px;
+  top:-70px;
 }
 
 .full-width{
@@ -163,6 +163,14 @@ h5>span{
 }
 .subtext{
   font-size: 14px;
+}
+
+.blockHeading{
+  color: #333333;
+  font-size: 16px;
+  width: 100%;
+  padding:7px 0;
+  border-bottom: 1px solid #333333;
 }
 
 .blue{
@@ -246,6 +254,19 @@ h5>span{
     width:125px;
   }
 }
+.btn-purple_hollow--padding{
+  @include mainButton($purple, white, 14px, 30px, fit-content);
+  padding: 0 15px;
+  margin: 0 5px;
+  *{color: red}
+}
+
+.btn-blue_hollow--padding{
+  @include mainButton($turquiose, white, 14px, 30px, fit-content);
+  padding: 0 15px;
+  margin: 0 5px
+}
+
 
 .close-circle{
   background: url('../assets/icons/close_hollow_circle-black.svg') no-repeat center/contain;
@@ -264,11 +285,12 @@ h5>span{
   align-items: center;
   padding: 0.2rem 2rem;
   position: fixed;
-  z-index: 1;
+  z-index: 15;
   width: 100%;
   top: 0;
   // border-bottom: solid 1px red;
   opacity: 0.9;
+  transition: .3s all ease-in-out;
 
   &.landing{
     background-color: rgba(157, 157, 157, 0.659);
@@ -278,12 +300,27 @@ h5>span{
     background-color: transparent;
   }
 
+  &.profile{
+    &.sticky{
+      background-color: rgba(157, 157, 157, 0.9);
+    }
+  }
+
   &.dark{
     opacity: .95;background: rgb(0,0,0);
     background: linear-gradient(180deg, rgba(0,0,0,1) 30%, rgba(180,158,151,0) 100%);
 
   }
 
+  &.sticky{
+    position: fixed;
+    top: -60px;
+    left: 0;
+    width: 100%;
+    &:hover{
+      top: 0px;
+    }
+  }
 
 }
 

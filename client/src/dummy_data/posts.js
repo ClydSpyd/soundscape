@@ -12,7 +12,7 @@ export const dummyPosts = [
     user:{
       name: 'Mister Robot',
       avatar:'https://www.mondosonoro.com/wp-content/uploads/2020/05/daftPunk_DeanChalkley.jpg',
-      _id:5568987
+      _id:'60452bf7022e009ffb497180'
     },
     date: new Date('2021-02-11')
   },
@@ -26,7 +26,7 @@ export const dummyPosts = [
     user:{
       name: 'Baloo Clydesdale',
       avatar:profilePic,
-      _id:5568987
+      _id:'60452bf7022e009ffb497180'
     },
     date: new Date('2020-12-21')
   },
@@ -40,7 +40,7 @@ export const dummyPosts = [
     user:{
       name: 'Tim Johnson',
       avatar:'https://pbs.twimg.com/profile_images/1308018539526336514/Hko3tJz__400x400.jpg',
-      _id:555098765
+      _id:'60452bf7022e009ffb497180'
     },
     date: new Date('2020-11-02')
   },
@@ -54,7 +54,7 @@ export const dummyPosts = [
     user:{
       name: 'Dee Jay',
       avatar:'https://freerangestock.com/sample/88945/music-lover.jpg',
-      _id:5568987
+      _id:'60452bf7022e009ffb497180'
     },
     date: new Date('2020-12-21')
   },
@@ -68,7 +68,7 @@ export const dummyPosts = [
     user:{
       name: 'Dave Clydesdale',
       avatar:'https://c8.alamy.com/comp/2A7CFA7/funny-guy-in-tight-red-tracksuit-and-sunglasses-posing-sitting-2A7CFA7.jpg',
-      _id:8765654
+      _id:'60452bf7022e009ffb497180'
     },
     date: new Date('2021-02-21')
   },
@@ -82,7 +82,7 @@ export const dummyPosts = [
     user:{
       name: 'Baloo Clydesdale',
       avatar:profilePic,
-      _id:5568987
+      _id:'60452bf7022e009ffb497180'
     },
     date: new Date('2020-12-21')
   },
@@ -96,7 +96,7 @@ export const dummyPosts = [
     user:{
       name: 'Dee Jay',
       avatar:'https://freerangestock.com/sample/88945/music-lover.jpg',
-      _id:5568987
+      _id:'60452bf7022e009ffb497180'
     },
     date: new Date('2020-12-21')
   },
@@ -110,7 +110,7 @@ export const dummyPosts = [
     user:{
       name: 'Dave Clydesdale',
       avatar:'https://c8.alamy.com/comp/2A7CFA7/funny-guy-in-tight-red-tracksuit-and-sunglasses-posing-sitting-2A7CFA7.jpg',
-      _id:8765654
+      _id:'60452bf7022e009ffb497180'
     },
     date: new Date('2021-02-21')
   },
@@ -124,7 +124,7 @@ export const dummyPosts = [
     user:{
       name: 'Mister Robot',
       avatar:'https://www.mondosonoro.com/wp-content/uploads/2020/05/daftPunk_DeanChalkley.jpg',
-      _id:5568987
+      _id:'60452bf7022e009ffb497180'
     },
     date: new Date('2021-02-11')
   },
@@ -138,7 +138,7 @@ export const dummyPosts = [
     user:{
       name: 'Tim Johnson',
       avatar:'https://pbs.twimg.com/profile_images/1308018539526336514/Hko3tJz__400x400.jpg',
-      _id:555098765
+      _id:'60452bf7022e009ffb497180'
     },
     date: new Date('2020-11-02')
   }

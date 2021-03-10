@@ -5,6 +5,12 @@
   position: fixed;
   box-sizing:border-box;
   margin:0;
+  top: 100px;
+  transition: .3s ease-in-out all;
+
+  &.sticky{
+    top: 20px;
+  }
 
   *{
     text-align: center;

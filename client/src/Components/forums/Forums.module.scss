@@ -1,0 +1,196 @@
+@import '../../styles/app.scss';
+
+.forumsContainer{
+
+  *{
+    position: relative;
+    z-index: 10;
+  }
+
+  h1{
+    font-size: 65px;
+    font-weight: 700;
+    margin:0;
+    color: white;
+  }
+  h4{
+    font-weight: 500;
+    margin:0;
+    color: white;
+  }
+
+
+  .heading{
+    font-weight: 500;
+    width: 100%;
+    text-align: left;
+    color: #333333;
+    border-bottom: 1px solid $turquiose;
+    margin: 20px 0 10px 0;
+    padding:0 0 5px 7px;
+    font-size: 14px;
+  }
+
+  .sideBlock{
+    width: 100%;
+    min-height: 100px;
+    border:1px solid $turquiose;
+    box-sizing:border-box;
+    padding:5px 10px 10px;
+    margin-bottom: 10px;
+
+    h4{
+      color: #333333;
+      padding-top: 0;
+      border-bottom-color: $turquiose;
+    }
+
+    .statRow{
+      display: flex;
+      align-items: center;
+      height: 40px;
+      box-sizing:border-box;
+      padding:0 10px;
+      i{
+        margin-right: 5px;
+        color: $turquiose
+      }
+      p{
+        font-weight: 500;
+        color: #333333;
+      }
+    }
+  }
+
+
+  .browseForums{
+    height: 1400px;
+    .hero{
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      height: 360px;
+      width: 100vw;
+      box-sizing:border-box;
+      padding:60px 0 0 0;
+
+      &:before{
+        content:"";
+        opacity: .4;
+        z-index: 5;
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        top:0;
+        background: url('../../assets/img/showcase_img.jpg');
+        background-position:0 -550px;
+        background-size: cover;
+        background-repeat: no-repeat;
+
+      }
+
+      .overlay{
+        opacity: 1;
+        z-index: 5;
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        top:0;
+        background: $turquiose;
+        mix-blend-mode: color-burn;
+        transition: .3s ease-in all;
+        border-radius:05px;
+      }
+
+    }
+
+    input[type="search"]{
+      background: white url('https://icons-for-free.com/iconfiles/png/512/search-131964784990705675.png') no-repeat left 10px center;
+      background-size: 20px;
+      margin:25px 0;
+      height: 35px;
+      width: 450px;
+      border-radius: 17.5px;
+      outline: none;
+      border: none;
+      padding: 0 10px 0 35px;
+      color: black
+    }
+
+    .categoryBtns{
+      width: 610px;
+      margin:20px auto;
+
+      .inner{
+        justify-content: space-evenly;
+        display: flex;
+        flex-wrap: wrap;
+
+      }
+
+      .category{
+        font-size: 16px;
+        display:flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px 0;
+        width: 195px;
+        margin:0 0 5px 0  !important;
+        border-radius: 2px;
+
+      }
+    }
+
+    .main{
+      width: 1200px;
+      margin:  10px auto;
+      display: flex;
+      justify-content: space-between;
+
+      .left{
+        width: 80%;
+
+        .radios{
+          height: 40px;
+          display: flex;
+          align-items: center;
+          justify-content: flex-start;
+          width: 100%;
+          border-bottom: 1px solid $turquiose;
+
+          input[type="radio"]{
+            display: none;
+          }
+
+          label>input+div.filterOption{
+            height: 35px;
+            width: 120px;
+            line-height: 35px;
+            text-align: center;
+            color: #333333;
+            font-size: 15px;
+            font-weight: 500;
+            cursor: pointer;
+
+            &:hover{
+              text-decoration: underline;
+            }
+          }
+          label>input:checked+div.filterOption{
+            background-color: $turquiose;
+            color: white;
+          }
+        }
+      }
+      .right{
+        width: calc(20% - 15px);
+        min-width: 220px;
+        margin-top: 40px;
+      }
+
+    }
+  }
+
+}
