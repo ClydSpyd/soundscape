@@ -28,7 +28,7 @@ const VideoPlayerModal = ({ setShowVideo, url, height, width }) => {
           <div
             onClick={() => { setShowVideo(false) }}
             className={styles.closePlayer}>
-            {/* <img src={closeImg} alt="close" /> */}
+            <div className="close-circle top-right" style={{top:"3px", right:"5px"}} />
           </div>
           <ReactPlayer
             controls={true}

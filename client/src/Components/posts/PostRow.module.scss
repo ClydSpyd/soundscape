@@ -6,7 +6,7 @@
   border:1px solid $turquiose;
   box-sizing:border-box;
   padding:10px 15px 5px 15px;
-  margin:5px 0;
+  margin:8px 0;
   
 
   .top, .bottom{
@@ -15,8 +15,9 @@
   .bottom{
     width: calc(100% - 65px);
     margin: 10px 0 0 65px;
-    border-top: 1px solid #333333;
+    border-top: 1px solid $turquiose;
     padding: 5px 0;
+    justify-content: space-between;
     
   }
 
@@ -43,7 +44,7 @@
     top:30px
   }
 
-  p{
+  h3+p{
     width: 95%;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -54,6 +55,17 @@
   p>a{
     color: $purple;
     font-weight: 500;
+  }
+
+  .icons{
+    margin-right: 10px;
+    width: 120px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    i{
+      margin-left: 10px;
+    }
   }
 
   span.category{

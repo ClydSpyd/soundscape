@@ -1,0 +1,51 @@
+@import '../../styles/App.scss';
+
+.newPostModal{
+  height: 500px;
+  width: 800px;
+  // background-color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+
+  h5{
+    width: 700px;
+    text-align: left;
+    margin-bottom: 10px;
+
+    span{
+      color: $turquiose;
+      text-decoration: none;
+      font-size: 17px;
+      font-weight: 700;
+    }
+  }
+
+  input{
+    outline: none;
+    border:1px solid #cacaca;
+    width: 700px;
+    padding: 10px;
+    font-size: 16px;
+    margin-bottom: 5px;
+  }
+
+  .buttons{
+    width: 700px;
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 15px;
+  }
+
+  .btn{
+    font-size: 17px;
+    line-height: 40px;
+    height: 40px;
+    width: 180px;
+    position: relative;
+    left:5px;
+  }
+
+}

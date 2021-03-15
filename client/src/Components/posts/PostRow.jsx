@@ -4,7 +4,9 @@ import { Link } from 'react-router-dom'
 
 import styles from './PostRow.module.scss';
 
-const PostRow = ({post: { 
+const PostRow = ({
+  isCategory,
+  post: { 
   _id, 
   title, 
   text, 
@@ -18,6 +20,8 @@ const PostRow = ({post: {
     avatar
   }}}) => {
 
+    const postDate = format(date, 'EEEE MMM dd, yyyy')
+
   return (
     <div className={styles.postRow}>
       <div className={styles.top}>
@@ -28,7 +32,19 @@ const PostRow = ({post: {
         </div>
       </div>
       <div className={styles.bottom}>
-      <p>Posted by <Link to={`/profile/${user._id}`}>{name}</Link> in <span className={styles.category}>{category}</span>  on {format(date, 'EEEE MMM dd, yyyy')} </p>
+        {
+          !isCategory ?
+          
+            <p>Posted by <Link to={`/profile/${user._id}`}>{name}</Link> in <span className={styles.category}>{category}</span> on {postDate}</p>
+          :
+            <p>Posted by <Link to={`/profile/${user._id}`}>{name}</Link> on {postDate}</p>
+
+        }
+
+      <Link to={`/post/${_id}`} className={styles.icons}>
+        <i className="far fa-comment-alt"></i><p>{comments}</p>
+        <i className="far fa-thumbs-up"></i><p>{likes}</p>
+      </Link>
       </div>
 
     </div>

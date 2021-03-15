@@ -1,0 +1,59 @@
+@import '../../styles/App.scss';
+
+.pollBlock{
+  h4+h6{
+    margin:10px 0;
+    font-weight: 500;
+    color: #333333;
+  }
+
+  .pollRow{
+    display: flex;
+    align-items: center;
+    position: relative;
+    margin-top: 15px;
+    font-weight: 700;
+    font-style: italic;
+
+    p{
+      font-size: 12px;
+      position: absolute;
+      top:-15px;
+      font-weight: 500;
+      color: #333333;
+    }
+
+    .barContainer{
+      height: 25px;
+      width: calc(100% - 40px);
+      box-sizing:border-box;
+      padding:2px;
+      border:1px solid $turquiose;
+      margin-right: 15px;
+
+      .barInner{
+        background-color: $purple;
+        height: 100%;
+      }
+    }
+
+    label{
+      input[type="radio"]{
+        display: none;
+      }
+      i{
+        cursor: pointer;
+        font-size: 20px;
+        color: $turquiose;
+      }
+    }
+  }
+
+  .submittedBy{
+    font-size: 10px;
+    text-align: right;
+    width: 100%;
+    margin-top: 8px;
+  }
+
+}

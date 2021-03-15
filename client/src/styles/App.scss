@@ -1,6 +1,7 @@
 @import './mixins.scss';
 @import './variables.scss';
 @import './animations.scss';
+@import './quillOverrideStyles.scss';
 
 @import url('https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,300;0,400;0,500;0,600;0,700;0,900;1,300;1,400;1,500;1,600;1,700;1,900&display=swap');
 
@@ -10,6 +11,16 @@
   margin: 0;
   padding: 0;
   font-family: 'Barlow', sans-serif;
+}
+
+input,
+select,
+textarea,
+button{
+  -webkit-appearance: none; 
+  -moz-appearance: none; 
+  border:none;
+  outline: none;
 }
 
 input:focus,
@@ -267,10 +278,27 @@ h5>span{
   margin: 0 5px
 }
 
+.disabled{
+  opacity: .4;
+  pointer-events: none;
+
+  // &.grey{
+  //   background-color: ;
+  // }
+}
+
 
 .close-circle{
   background: url('../assets/icons/close_hollow_circle-black.svg') no-repeat center/contain;
   cursor: pointer;
+
+  &.top-right{
+    position:absolute;
+    top:10px; 
+    right:10px; 
+    width:20px; 
+    height:20px
+  }
 }
 
 .bg-dark{
@@ -357,7 +385,7 @@ h4.nav-logo{
   // background: url('../assets/img/logos/soundscape-multi_colour.png') no-repeat, left center;
   background: url('../assets/img/logos/soundscape-white_multi_colour_noBorder.png') no-repeat, left center;
   line-height: 50px;
-  background-size: 50px;
+  background-size: 49px;
   padding-left: 55px;
 }
 
@@ -425,6 +453,7 @@ h4.nav-logo{
       margin:5px 0;
       box-sizing:border-box;
       padding:0 10px;
+      border: 1px solid #cacaca
     }
 
     button{

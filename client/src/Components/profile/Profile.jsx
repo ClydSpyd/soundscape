@@ -17,12 +17,11 @@ const Profile = ({ navRef, setShowVideo }) => {
   const profile = useSelector(state => state.profile)
   const user = useSelector(state => state.auth.user)
   const isEdit = profileParam&&profileParam==='edit'
-  const isMe = profileParam&&profileParam==='me'
+  const isMe = (profileParam&&profileParam==='me')||profileParam===user._id
 
   useEffect(()=>{
 
     if(!isMe){
-      console.log('NOT ME')
       store.dispatch(getProfile(profileParam))
       console.log('fetch user profile')
       console.log(profileParam)
@@ -62,6 +61,7 @@ const Profile = ({ navRef, setShowVideo }) => {
         isMe && profile.me ?
             <ViewProfile 
               isMe
+              userId={user._id}
               setShowVideo={setShowVideo}
               displayProfile={profile.me} />
               
@@ -73,6 +73,7 @@ const Profile = ({ navRef, setShowVideo }) => {
               
         !isMe && profile.profile ?
             <ViewProfile 
+            userId={profileParam}
             setShowVideo={setShowVideo}
             displayProfile={profile.profile} />
       :

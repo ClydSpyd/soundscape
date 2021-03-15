@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { Route, Switch, useLocation } from 'react-router-dom'
-
+import { Route, Switch, useLocation, Redirect } from 'react-router-dom'
+import { useSelector } from 'react-redux';
 import Landing from './Components/layout/Landing';
 import Dashboard from './Components/dashboard/Dashboard';
 import PrivateRoute from './Components/PrivateRoute';
@@ -14,16 +14,24 @@ import Profile from './Components/profile/Profile';
 import Logout from './Components/auth/Logout';
 import VideoPlayerModal from './Components/layout/VideoPlayerModal';
 import Forums from './Components/forums/Forums';
+import ModalOverlay from './Components/layout/ModalOverlay';
+import { fetchAllPosts } from './actions/postActions';
 
 
 const App= () => {
 
   const location = useLocation()
   const navRef = useRef()
+  const [ modalOverlay, setModalOverlay ] = useState({vis:false, component:null})
+  const toggleModalOverlay = (vis, component) => { setModalOverlay({vis:vis, component:component})}
+  const isAuthenticated = useSelector(state => state.auth.isAuthenticated)
   const [ videoOverlay, setVideoOverlay ] = useState({vis:false, url:''})
   const setShowVideo = (vis, url) => { setVideoOverlay({vis:vis, url:url}) }
-  useEffect(()=>{ store.dispatch(loadUser()) },[])
-  useEffect(()=>{setShowVideo(false,null); console.log(location)},[location])
+  useEffect(()=>{ 
+    store.dispatch(loadUser()) 
+  },[])
+  useEffect(()=>{setShowVideo(false,null)},[location])
+  
 
   return (
 
@@ -38,20 +46,15 @@ const App= () => {
       </Switch>
 
       <Switch> {/* main switch  */}
-
         <Route exact path="/" component={Landing} />
-
         <Route exact path="/login" component={Login} />
         <Route exact path="/logout" component={Logout} />
         <Route exact path="/register" component={Register} />
-        <Route exact path="/forums" component={Forums} />
-
-        <PrivateRoute exact path="/profile/:profileParam?" component={()=> 
-          <Profile 
-            navRef={navRef}  
-            setShowVideo={setShowVideo}/>} />
-
+        <Route path="/forums/:category?" component={()=> 
+          <Forums toggleModalOverlay={toggleModalOverlay}/>} />
         <PrivateRoute exact path="/dashboard" component={Dashboard} />
+        <PrivateRoute exact path="/profile/:profileParam?" component={()=> 
+          <Profile navRef={navRef} setShowVideo={setShowVideo}/>} />
       </Switch>
 
 
@@ -62,6 +65,12 @@ const App= () => {
           height='428px'
           width='760px' />
         }
+
+      {modalOverlay.vis &&
+        <ModalOverlay 
+          closeModal = {()=> toggleModalOverlay(false, null) }
+          Component={modalOverlay.component}/>
+      }
 
     </>
   );

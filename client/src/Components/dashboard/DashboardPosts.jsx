@@ -1,10 +1,17 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useSelector } from 'react-redux';
+import { fetchAllPosts } from '../../actions/postActions';
 import { dummyPosts } from '../../dummy_data/posts';
+import store from '../../store';
 import PostRowCompact from '../posts/PostRowCompact';
 
 import styles from './DashboardPosts.module.scss';
 
 const DashboardPosts = () => {
+
+  useEffect(()=>{ store.dispatch( fetchAllPosts() ) },[])
+
+  const statePosts = useSelector(state => state.post.posts)
 
   return (
     <div className={styles.dashPosts}>
@@ -16,7 +23,7 @@ const DashboardPosts = () => {
 
       <div className={styles.posts}>
         {
-          dummyPosts.map((post, idx) => <PostRowCompact key={idx} post={post}  /> )
+          statePosts.map((post, idx) => <PostRowCompact key={idx} post={post}  /> )
         }
       </div>
     </div>

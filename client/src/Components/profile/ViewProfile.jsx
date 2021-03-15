@@ -1,19 +1,26 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { dummyPosts } from '../../dummy_data/posts';
+import { fetchAllPosts } from '../../actions/postActions';
 import { dummyProjects } from '../../dummy_data/projects';
 import titleCase from '../../helpers/titleCase';
+import store from '../../store';
 import DiscoveryItem from '../dashboard/DiscoveryItem';
 import PostRowCompact from '../posts/PostRowCompact';
 import EssentialItem from './EssentialItem'
 import styles from './ViewProfile.module.scss';
 
-const ViewProfile = ({ displayProfile:{ status, location, genres, projects, bio, facebook, instagram, youtube, spotify, soundcloud, twitter, essentialListening, user: {name, avatar } }, isMe, setShowVideo }) => {
+const ViewProfile = ({ displayProfile:{ status, location, genres, projects, bio, facebook, instagram, youtube, spotify, soundcloud, twitter, essentialListening, user: {name, avatar } }, isMe, setShowVideo, userId }) => {
 
   const firstName = name.split(' ')[0];
-
   const hasSocial = facebook || instagram || youtube || spotify || soundcloud || twitter;
+  const statePosts = useSelector(state => state.post.posts)
+  const  [userPosts, setUserPosts ] = useState(null)
+  useEffect(()=>{ if(!statePosts) store.dispatch( fetchAllPosts() ) },[])
+  useEffect(()=>{ setUserPosts(statePosts.filter(post => post.user === userId )) },[statePosts])
 
+ 
+  
   const essentialItems = [
     {
       artist:"Primus",
@@ -147,7 +154,7 @@ const ViewProfile = ({ displayProfile:{ status, location, genres, projects, bio,
             <h5 className={styles.heading}>Recent posts by {firstName}</h5>
 
             {
-              dummyPosts.map((post, idx) => idx!==1&&idx!==3&&idx<5 && <PostRowCompact key={idx} post={{...post, user:{name: name, avatar:avatar, _id:666}}} />)
+              userPosts && userPosts.map((post, idx) => <PostRowCompact key={idx} post={post} />)
             }
 
           </div>
