@@ -5,20 +5,20 @@ import styles from './VideoPlayerModal.module.scss';
 // import closeImg from '../../../Assets/Icons/icon-close--circle.svg';
 import { useEffect } from 'react';
 
-const VideoPlayerModal = ({ setShowVideo, url, height, width }) => {
+const VideoPlayerModal = ({ setShowVideo, url, height, width, closeModal }) => {
 
-  useEffect(() => {
+  // useEffect(() => {
 
-    document.documentElement.style.overflow = 'hidden';
-    document.body.scroll = "no";
+  //   document.documentElement.style.overflow = 'hidden';
+  //   document.body.scroll = "no";
 
-    return () => {
-      document.documentElement.style.overflow = 'scroll';
-      document.body.scroll = "yes";
+  //   return () => {
+  //     document.documentElement.style.overflow = 'scroll';
+  //     document.body.scroll = "yes";
 
-    }
+  //   }
 
-  }, [])
+  // }, [])
 
   return (
     <div className={styles.videoPlayerModal}>
@@ -26,7 +26,7 @@ const VideoPlayerModal = ({ setShowVideo, url, height, width }) => {
       <div className={styles.modalOverlay}>
         <div className={styles.modalContent}>
           <div
-            onClick={() => { setShowVideo(false) }}
+            onClick={() => closeModal()}
             className={styles.closePlayer}>
             <div className="close-circle top-right" style={{top:"3px", right:"5px"}} />
           </div>
@@ -36,7 +36,7 @@ const VideoPlayerModal = ({ setShowVideo, url, height, width }) => {
             height={height}
             url={url}
           />
-          <p onClick={() => { setShowVideo(false) }}>close</p>
+          <p onClick={() => closeModal()}>close</p>
         </div>
       </div>
     </div>

@@ -63,8 +63,27 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    i{
-      margin-left: 10px;
+
+    .commentLink{
+      display: flex;
+      align-items: center;
+
+      i{
+        margin-right: 5px;
+      }
+    }
+
+
+    .likeDiv{
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+
+      i{
+        margin-right: 5px;
+        position: relative;
+        bottom: 1px;
+      }
     }
   }
 

@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { getLinkPreview, getPreviewFromContent } from 'link-preview-js';
 import styles from './EssentialItem.module.scss';
+import store from '../../store';
+import VideoPlayerModal from '../layout/VideoPlayerModal';
 
-const EssentialItem = ({ itemUrl, artist, title, setShowVideo }) => {
+const EssentialItem = ({ itemUrl, artist, title, setShowVideo, toggleModalOverlay }) => {
 
   const [ linkData, setLinkData ] = useState(null)
   const [inlineStyle, setInlineStyle ] = useState({  
@@ -27,9 +29,16 @@ const EssentialItem = ({ itemUrl, artist, title, setShowVideo }) => {
     }
   },[linkData])
 
+  const showVideo = () => {
+    toggleModalOverlay(true, <VideoPlayerModal  setShowVideo={setShowVideo} 
+      url={itemUrl} 
+      height='428px'
+      width='760px' />)
+  }
+
 
   return (
-    <div className={styles.essentialItem} style={inlineStyle} onClick={()=>setShowVideo(true, itemUrl)}>
+    <div className={styles.essentialItem} style={inlineStyle} onClick={showVideo}>
       <h3>{artist}</h3>
       <h5>{title}</h5>
       <div className={styles.play}><i class="far fa-play-circle"></i></div>

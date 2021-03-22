@@ -2,6 +2,7 @@
 @import './variables.scss';
 @import './animations.scss';
 @import './quillOverrideStyles.scss';
+@import 'react-quill/dist/quill.snow.css';
 
 @import url('https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,300;0,400;0,500;0,600;0,700;0,900;1,300;1,400;1,500;1,600;1,700;1,900&display=swap');
 
@@ -52,7 +53,6 @@ ul {
 
 p{
   font-size: 14px;
-
 }
 
 p.error-text{
@@ -160,6 +160,7 @@ h5>span{
 
 .round-img{
   border-radius: 50%;
+  object-fit: cover;
 }
 
 /* text styles */

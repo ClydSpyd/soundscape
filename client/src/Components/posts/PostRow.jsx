@@ -20,7 +20,7 @@ const PostRow = ({
     avatar
   }}}) => {
 
-    const postDate = format(date, 'EEEE MMM dd, yyyy')
+  const postDate = format(date, 'EEEE MMM dd, yyyy')
 
   return (
     <div className={styles.postRow}>
@@ -41,10 +41,11 @@ const PostRow = ({
 
         }
 
-      <Link to={`/post/${_id}`} className={styles.icons}>
-        <i className="far fa-comment-alt"></i><p>{comments}</p>
-        <i className="far fa-thumbs-up"></i><p>{likes}</p>
-      </Link>
+        <div className={styles.icons}>
+          <Link className={styles.commentLink} to={`/post/${_id}`} ><i className="far fa-comment-alt"></i><p>{comments}</p></Link>
+          <div className={styles.likeDiv}><i className="far fa-thumbs-up"></i><p>{likes}</p></div>
+        </div>
+        
       </div>
 
     </div>

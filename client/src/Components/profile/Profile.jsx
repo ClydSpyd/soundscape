@@ -11,13 +11,13 @@ import { initialProfile } from '../../reducers/defaultProfile';
 import styles from './Profile.module.scss';
 import ViewProfile from './ViewProfile';
 
-const Profile = ({ navRef, setShowVideo }) => {
+const Profile = ({ navRef, setShowVideo, toggleModalOverlay }) => {
 
   const { profileParam } = useParams()
   const profile = useSelector(state => state.profile)
   const user = useSelector(state => state.auth.user)
   const isEdit = profileParam&&profileParam==='edit'
-  const isMe = (profileParam&&profileParam==='me')||profileParam===user._id
+  const isMe = (profileParam&&profileParam==='me')||(user&&profileParam===user._id)
 
   useEffect(()=>{
 
@@ -63,6 +63,7 @@ const Profile = ({ navRef, setShowVideo }) => {
               isMe
               userId={user._id}
               setShowVideo={setShowVideo}
+              toggleModalOverlay={toggleModalOverlay}
               displayProfile={profile.me} />
               
       :
@@ -75,6 +76,7 @@ const Profile = ({ navRef, setShowVideo }) => {
             <ViewProfile 
             userId={profileParam}
             setShowVideo={setShowVideo}
+            toggleModalOverlay={toggleModalOverlay}
             displayProfile={profile.profile} />
       :
 

@@ -7,7 +7,7 @@ import { createNewPost } from '../../actions/postActions'
 import styles from './NewPostModal.module.scss';
 import store from "../../store";
 
-const NewPostModal = ({category}) => {
+const NewPostModal = ({ category, closeModal }) => {
   const [ postTitle, setPostTitle ] = useState('')
   const [inputHTML, setInputHTML] = useState('');
   const [ inputPlain, setInputPlain ] = useState('');
@@ -41,6 +41,7 @@ const NewPostModal = ({category}) => {
 
   return (
     <div className={styles.newPostModal}>
+      <div onClick={closeModal} className="close-circle top-right"></div>
       <h5>New Post in <span>{titleCase(category)}</span></h5>
       <input 
         autoFocus 

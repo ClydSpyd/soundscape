@@ -1,6 +1,7 @@
 const initialState = {
   loading:false,
   posts:[],
+  post:{},
   error:null
 }
 
@@ -22,6 +23,13 @@ export default function(state=initialState, action){
         loading:false,
       }
 
+    case 'POST_RETREIVED':
+      return{
+        ...state,
+        loading: false,
+        post: payload
+      }
+
     case 'POSTS_RETREIVED':
       return{
         ...state,
@@ -34,6 +42,12 @@ export default function(state=initialState, action){
         ...state,
         loading:false,
         error:payload
+      }
+    
+    case 'POST_LIKED':
+      return{
+        ...state,
+        post:payload
       }
 
     default:

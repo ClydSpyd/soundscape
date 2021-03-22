@@ -8,7 +8,6 @@ export const fetchAllPosts = () => async dispatch => {
   try {
     const res = await axios.get('http://localhost:5000/api/posts')
 
-    console.log(res)
     dispatch({ 
       type: 'POSTS_RETREIVED',
       payload: res.data
@@ -23,9 +22,49 @@ export const fetchAllPosts = () => async dispatch => {
       payload:err.response})
     
   }
+}
 
+export const fetchSinglePost = (post_id) => async dispatch => {
 
+  dispatch({ type: "POST_QUERY", })
 
+  try {    
+    
+    const res = await axios.get(`http://localhost:5000/api/posts/${post_id}`)
+
+    dispatch({ 
+      type: 'POST_RETREIVED',
+      payload: res.data
+    })
+  
+    
+  } catch (err) {
+    
+    console.log(err.response)
+
+    dispatch({ 
+      type: 'POST_ERROR', 
+      payload:err.response})
+  
+  }
+}
+
+export const likePost = ( post_id ) => async dispatch => {
+
+  try {
+        
+    const res = await axios.post(`http://localhost:5000/api/posts/like/${post_id}`)
+
+    dispatch({ 
+      type: 'POST_LIKED',
+      payload: res.data
+    })
+  
+    
+  } catch (err) {
+    console.log(err.response)
+
+  }
 }
 
 

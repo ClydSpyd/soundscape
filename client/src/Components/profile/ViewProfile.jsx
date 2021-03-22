@@ -10,14 +10,14 @@ import PostRowCompact from '../posts/PostRowCompact';
 import EssentialItem from './EssentialItem'
 import styles from './ViewProfile.module.scss';
 
-const ViewProfile = ({ displayProfile:{ status, location, genres, projects, bio, facebook, instagram, youtube, spotify, soundcloud, twitter, essentialListening, user: {name, avatar } }, isMe, setShowVideo, userId }) => {
+const ViewProfile = ({ displayProfile:{ status, location, genres, projects, bio, facebook, instagram, youtube, spotify, soundcloud, twitter, essentialListening, user: {name, avatar } }, isMe, setShowVideo, userId, toggleModalOverlay }) => {
 
   const firstName = name.split(' ')[0];
   const hasSocial = facebook || instagram || youtube || spotify || soundcloud || twitter;
   const statePosts = useSelector(state => state.post.posts)
   const  [userPosts, setUserPosts ] = useState(null)
   useEffect(()=>{ if(!statePosts) store.dispatch( fetchAllPosts() ) },[])
-  useEffect(()=>{ setUserPosts(statePosts.filter(post => post.user === userId )) },[statePosts])
+  useEffect(()=>{ setUserPosts(statePosts.filter(post => post.user._id === userId )) },[statePosts])
 
  
   
@@ -130,6 +130,7 @@ const ViewProfile = ({ displayProfile:{ status, location, genres, projects, bio,
               {
                 essentialItems.map((item, idx) => {
                   return <EssentialItem
+                    toggleModalOverlay={toggleModalOverlay}
                     setShowVideo={setShowVideo}
                     artist={item.artist}
                     title={item.title}

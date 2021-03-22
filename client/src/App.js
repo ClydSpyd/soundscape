@@ -1,36 +1,34 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { Route, Switch, useLocation, Redirect } from 'react-router-dom'
+import React, { useEffect, useRef } from 'react';
+import { Route, Switch, useLocation } from 'react-router-dom'
 import { useSelector } from 'react-redux';
+import { loadUser } from './actions/authActions';
+
+import './styles/App.scss';
+import store from './store'
+
+import NavBar from './Components/layout/NavBar';
 import Landing from './Components/layout/Landing';
+import Login from './Components/auth/Login';
+import Register from './Components/auth/Register';
 import Dashboard from './Components/dashboard/Dashboard';
 import PrivateRoute from './Components/PrivateRoute';
-import './styles/App.scss';
-import { loadUser } from './actions/authActions';
-import Login from './Components/auth/Login';
-import store from './store'
-import NavBar from './Components/layout/NavBar';
-import Register from './Components/auth/Register';
 import Profile from './Components/profile/Profile';
 import Logout from './Components/auth/Logout';
-import VideoPlayerModal from './Components/layout/VideoPlayerModal';
 import Forums from './Components/forums/Forums';
 import ModalOverlay from './Components/layout/ModalOverlay';
-import { fetchAllPosts } from './actions/postActions';
+import { updateModalContent } from './actions/modalContentActions';
+import ViewPost from './Components/posts/ViewPost';
 
 
 const App= () => {
 
   const location = useLocation()
   const navRef = useRef()
-  const [ modalOverlay, setModalOverlay ] = useState({vis:false, component:null})
-  const toggleModalOverlay = (vis, component) => { setModalOverlay({vis:vis, component:component})}
-  const isAuthenticated = useSelector(state => state.auth.isAuthenticated)
-  const [ videoOverlay, setVideoOverlay ] = useState({vis:false, url:''})
-  const setShowVideo = (vis, url) => { setVideoOverlay({vis:vis, url:url}) }
-  useEffect(()=>{ 
-    store.dispatch(loadUser()) 
-  },[])
-  useEffect(()=>{setShowVideo(false,null)},[location])
+  
+  const toggleModalOverlay = (vis, component) => store.dispatch(updateModalContent({vis, component}))
+  const modalVis = useSelector(state => state.modalContent.vis)
+  useEffect(()=>{ store.dispatch(loadUser()) },[])
+  useEffect(()=>{store.dispatch(updateModalContent({vis:false, component:null}))},[location])
   
 
   return (
@@ -47,30 +45,27 @@ const App= () => {
 
       <Switch> {/* main switch  */}
         <Route exact path="/" component={Landing} />
+
         <Route exact path="/login" component={Login} />
+
         <Route exact path="/logout" component={Logout} />
+
         <Route exact path="/register" component={Register} />
+
+        <PrivateRoute exact path="/dashboard" component={Dashboard} />
+
         <Route path="/forums/:category?" component={()=> 
           <Forums toggleModalOverlay={toggleModalOverlay}/>} />
-        <PrivateRoute exact path="/dashboard" component={Dashboard} />
+
         <PrivateRoute exact path="/profile/:profileParam?" component={()=> 
-          <Profile navRef={navRef} setShowVideo={setShowVideo}/>} />
+          <Profile navRef={navRef} toggleModalOverlay={toggleModalOverlay} />} />
+
+        <Route exact path ="/post/:postId" component={()=>  <ViewPost />} />
       </Switch>
 
-
-      {videoOverlay.vis && 
-        <VideoPlayerModal 
-          setShowVideo={setShowVideo} 
-          url={videoOverlay.url} 
-          height='428px'
-          width='760px' />
-        }
-
-      {modalOverlay.vis &&
-        <ModalOverlay 
-          closeModal = {()=> toggleModalOverlay(false, null) }
-          Component={modalOverlay.component}/>
-      }
+      { modalVis && 
+        <ModalOverlay closeModal = {()=> toggleModalOverlay(false, null) }/> }
+      
 
     </>
   );
