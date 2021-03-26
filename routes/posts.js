@@ -185,7 +185,7 @@ router.post('/comment/:post_id', [authMiddle, [
   try {
 
     // const post = await Post.findById(req.params.post_id)
-    const post = await Post.findById(req.params.post_id).lean().populate('user', [ 'name', 'avatar' ]) // POPULATE METHOD CREATING USER OBJECT FROM USER ID
+    const post = await Post.findById(req.params.post_id).populate('user', [ 'name', 'avatar' ]) // POPULATE METHOD CREATING USER OBJECT FROM USER ID
     const user = await User.findById(req.user);
 
     if(!post){
@@ -201,8 +201,7 @@ router.post('/comment/:post_id', [authMiddle, [
     }
 
     post.comments.unshift(newObject)
-
-    // await post.save()
+    await post.save()
 
     return res.status(200).json(post)
     
