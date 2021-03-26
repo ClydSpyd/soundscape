@@ -120,11 +120,42 @@
 
     .topBar{
       display: flex;
-      justify-content: space-between;
+      justify-content: flex-start;
+      align-items: center;
       border-color: #cacaca;
+      position: relative;
 
       .commentsHeader{
         margin-top: 10px;
+
+      }
+
+      .newCommentBtn{
+        margin-left: 15px;
+        position: relative;
+        top: 2px;
+        border-radius: 2px;
+        opacity: 1;
+        transition: .3s ease-out all;
+        width: 135px;
+        padding: 0 10px ;
+        span{
+          font-size: 25px;
+          font-weight: 500;
+          position: relative;
+          bottom:2px;
+          left:5px;
+        }
+      }
+
+
+      .postErrorMsg{
+        position: relative;
+        top:2px;
+        font-size: 13px;
+        font-weight: 500;
+        color: red;
+        margin-left: 10px;
       }
 
       .likes{
@@ -137,14 +168,14 @@
         cursor: pointer;
         border-radius: 2px;
         transition: .3s ease-in-out all;
-        bottom: 0px;
+        position: absolute;
+        right: 0;
 
         i{
           margin-right: 5px;
         }
 
         &:hover{
-          bottom:3px;
           border-color: $purple;
 
           *{
@@ -163,6 +194,50 @@
 
       }
 
+    }
+
+    .newCommentCont{
+      margin-top: 8px;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      height: 0;
+      overflow: hidden;
+      transition: .3s ease-out all;
+
+      &.open{
+        height: 80px;
+      }
+
+      .inputCont{
+        width: calc(100% - 160px);
+        height: 67px;
+        border:1px solid #cacaca;
+
+        textarea{
+          height: 100%;
+          width: 100%;
+          box-sizing:border-box;
+          padding:8px 15px;
+          resize: none;
+          font-size: 15px;
+        }
+
+      }
+
+
+      .newCommentButtons{
+        height: 67px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        width: 160px;
+
+        :first-child{
+          margin-bottom: 5px;
+        }
+
+      }
     }
     
 

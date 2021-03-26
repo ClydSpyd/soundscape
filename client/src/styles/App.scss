@@ -155,7 +155,8 @@ h5>span{
 }
 
 .zero-opacity{
-  opacity: 0;
+  opacity: 0 !important;
+  pointer-events: none !important;
 }
 
 .round-img{
@@ -183,6 +184,14 @@ h5>span{
   width: 100%;
   padding:7px 0;
   border-bottom: 1px solid #333333;
+
+  &.light{
+    border-color: #cacaca;
+  }
+
+  &.subhead{
+    font-size: 13px;
+  }
 }
 
 .blue{
@@ -229,11 +238,17 @@ h5>span{
 
 .btn-blue--padding{
   @include solidButton($turquiose, white, 14px, 30px, fit-content);
+  display: flex;
+  align-items: center;
+  justify-content:center;
   padding: 0 15px;
   margin: 0 5px
 }
 .btn-purple{
   @include solidButton($purple, white, 14px, 30px, 150px);
+  display: flex;
+  align-items: center;
+  justify-content:center;
   margin: 0 5px;
   
   &.sml{
@@ -243,6 +258,9 @@ h5>span{
 
 .btn-blue{
   @include solidButton($turquiose, white, 14px, 30px, 150px);
+  display: flex;
+  align-items: center;
+  justify-content:center;
   margin: 0 5px;
 
   &.sml{
@@ -252,6 +270,9 @@ h5>span{
 
 .btn-purple_hollow{
   @include mainButton($purple, white, 14px, 30px, 150px);
+  display: flex;
+  align-items: center;
+  justify-content:center;
   margin: 0 5px;
   *{color: red}
   &.sml{
@@ -261,6 +282,9 @@ h5>span{
 
 .btn-blue_hollow{
   @include mainButton($turquiose, white, 14px, 30px, 150px);
+  display: flex;
+  align-items: center;
+  justify-content:center;
   margin: 0 5px;
   &.sml{
     width:125px;
@@ -268,6 +292,9 @@ h5>span{
 }
 .btn-purple_hollow--padding{
   @include mainButton($purple, white, 14px, 30px, fit-content);
+  display: flex;
+  align-items: center;
+  justify-content:center;
   padding: 0 15px;
   margin: 0 5px;
   *{color: red}
@@ -275,6 +302,9 @@ h5>span{
 
 .btn-blue_hollow--padding{
   @include mainButton($turquiose, white, 14px, 30px, fit-content);
+  display: flex;
+  align-items: center;
+  justify-content:center;
   padding: 0 15px;
   margin: 0 5px
 }

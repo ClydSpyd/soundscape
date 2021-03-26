@@ -58,7 +58,7 @@ const PostSchema = new mongoose.Schema({
       avatar: {
         type: String
       },
-      date: {
+      createdOn: {
         type: Date,
         default: Date.now()
       }

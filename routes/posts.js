@@ -6,6 +6,9 @@ const authMiddle = require("../middleware/authMiddle")
 const { check, validationResult } = require("express-validator")
 const Profile = require("../models/Profile")
 
+const _uniqueId = require('lodash/uniqueId');
+// import { v4 as uuidv4 } from 'uuid'; <------//JSX
+// const { v4: uuidv4 } = require('uuid'); //<-------//comonJS
 
 // @route     GET api/posts
 // @desc      retrieve all posts
@@ -161,6 +164,53 @@ router.post('/like/:post_id', authMiddle, async (req, res ) => {
 
     // console.log(err)
     res.status(500).send(err)
+  }
+
+})
+
+
+// @route     POST api/posts/:post_id
+// @desc      Comment on a post
+// @access    private
+router.post('/comment/:post_id', [authMiddle, [
+  check('text', 'No text included').not().isEmpty()
+]], async (req, res) => {
+
+  const errors = validationResult(req)
+
+  if(!errors.isEmpty()){
+    return res.status(400).json({ errors: errors.array().map(({msg, param}) => ({msg, param})) }) 
+  }
+
+  try {
+
+    const post = await Post.findById(req.params.post_id)
+    const user = await User.findById(req.user);
+
+    if(!post){
+      return res.status(400).json({ msg: 'Post not found' }) 
+    }
+
+    const newObject = {
+      user: user._id,
+      name: user.name,
+      avatar: user.avatar,
+      text: req.body.text,
+      createdOn: new Date(),
+    }
+
+    post.comments.unshift(newObject)
+
+    await post.save()
+
+    return res.status(200).json(post)
+    
+  } catch (err) {
+
+    console.error(err.message)
+
+    res.status(500).send('server error')
+    
   }
 
 })

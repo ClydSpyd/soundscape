@@ -45,9 +45,17 @@ export default function(state=initialState, action){
       }
     
     case 'POST_LIKED':
+    case 'COMMENT_POSTED':  
       return{
         ...state,
         post:payload
+      }
+    
+    case 'POST_ERROR_REFRESH':
+      console.log('REFRESH')
+      return {
+        ...state,
+        error:initialState.error
       }
 
     default:

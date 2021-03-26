@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
-import { fetchSinglePost, likePost } from '../../actions/postActions';
+import { fetchSinglePost, likePost, postComment, postErrorRefresh } from '../../actions/postActions';
 import store from '../../store';
 import LoaderDiv from '../layout/loaderDiv';
 import DOMPurify from 'dompurify';
@@ -15,15 +15,45 @@ const ViewPost = () => {
   const { loading, post } = useSelector( state => state.post )
   const { user } = useSelector( state => state.auth )
   const [ isLiked, setIsLiked ] = useState(false)
+  const [ commentVis, setCommentVis ] = useState(false)
+  const [ commentInputText, setInputText ] = useState('');
+  const postError = useSelector(state => state.post.error)
 
 
   useEffect(()=>{ 
     store.dispatch(fetchSinglePost(postId)) 
   },[])
 
+  const handleNewCommentClick= () => {
+    console.log('handleNewCommentClick'); 
+    setCommentVis(true); 
+    store.dispatch(postErrorRefresh())
+  }
+
+  // useEffect(()=>{
+  //   console.log(commentVis)
+  //   if(commentVis){store.dispatch(postErrorRefresh()); console.log('refresh')}
+  // },[commentVis])
+
+  // useEffect(()=>{if(postError)setCommentVis(false)},[postError])
+
   useEffect(()=>{ 
     if(post&&post.likes){ setIsLiked(post.likes.some(like => like.user === user._id)) }
   },[post])
+
+  const handleSubmit = () => {
+    // const commentObject = { text: commentInputText };
+    const commentObject = { };
+    store.dispatch(postComment(postId, commentObject))
+
+  }
+  const errorRefresh = () => {
+    store.dispatch(()=>{
+      return{
+        type:'POST_ERROR_REFRESH'
+      }
+    })
+  }
 
   return (
     <div className={`${styles.viewPost}`}>
@@ -60,12 +90,45 @@ const ViewPost = () => {
               </section>
 
 
-              <section className={styles.lowerSection}>
-                <div className={`${styles.topBar}  blockHeading`}>
-                  <h4 className={`${styles.commentsHeader}`}>Comments <span>({post.comments.length})</span></h4>
-                  <div onClick={()=> store.dispatch( likePost(post._id) ) } className={`${styles.likes} ${isLiked && styles.liked}`}> <i className="far fa-thumbs-up"></i><p>{post.likes.length}</p> </div>
+            <section className={styles.lowerSection}>
+
+              <div className={`${styles.topBar}  blockHeading`}>
+
+                <h4 className={`${styles.commentsHeader}`}>
+                  Comments <span>({post.comments.length})</span>
+                </h4>
+
+
+                <div className={`${styles.newCommentBtn} ${commentVis && !postError && 'zero-opacity'} btn-blue_hollow`}
+                  onClick={handleNewCommentClick}>New Comment<span >+</span> </div>
+
+                { postError && <div className={styles.postErrorMsg}>{"Something went wrong :("}</div>}
+
+                <div onClick={() => store.dispatch(likePost(post._id))} className={`${styles.likes} ${isLiked && styles.liked}`}>
+                  <i className="far fa-thumbs-up"></i><p>{post.likes.length}</p>
                 </div>
-              </section>
+
+              </div>
+
+
+              <div className={`${styles.newCommentCont} ${commentVis && !postError && styles.open}`}>
+                <div className={styles.inputCont}>
+                  {commentVis &&
+                    <textarea
+                      value={commentInputText}
+                      onChange={e => setInputText(e.target.value)}
+                      placeholder={"New comment"}
+                      autoFocus />}
+                </div>
+
+                <div className={styles.newCommentButtons}>
+                  <div onClick={handleSubmit} className={`${commentInputText === '' && 'disabled'} btn-blue`}>Submit</div>
+                  <div onClick={e => { setCommentVis(false); setInputText(''); errorRefresh() }} className={`btn-purple_hollow`}>Cancel</div>
+                </div>
+              </div>
+
+
+            </section>
 
             </>
         }
