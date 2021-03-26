@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import titleCase from '../../helpers/titleCase';
-import PostRow from '../posts/PostRow'
+import PostRow from '../posts/PostRow/PostRow'
 
 import styles from './Forums.module.scss';
 import NewPostModal from './NewPostModal';
@@ -92,7 +92,7 @@ const ForumsCategory = ({ posts, category, toggleModalOverlay }) => {
       </div>
       <div className={styles.posts}>
         {
-          posts.map((post, idx) =>  <PostRow isCategory key={idx} post={post} /> )
+          posts.map((post, idx) => post.category===category && <PostRow isCategory key={idx} post={post} /> )
         }
       </div>
     </div>

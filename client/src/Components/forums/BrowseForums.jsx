@@ -2,7 +2,7 @@ import React from 'react'
 import { dummyPollData } from '../../dummy_data/poll'
 import { Link } from 'react-router-dom'
 import PollBlock from '../auxiliary_blocks/PollBlock'
-import PostRow from '../posts/PostRow'
+import PostRow from '../posts/PostRow/PostRow'
 
 import styles from './Forums.module.scss'
 

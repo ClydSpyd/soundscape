@@ -7,6 +7,7 @@ import LoaderDiv from '../layout/loaderDiv';
 import DOMPurify from 'dompurify';
 import styles from './ViewPost.module.scss';
 import { format } from 'date-fns';
+import PostComment from './PostComment/PostComment';
 
 
 const ViewPost = () => {
@@ -75,7 +76,7 @@ const ViewPost = () => {
                   <img className={`round-img`} src={post.user.avatar} alt="user img"/>
 
                   <div className={styles.info}>
-                    <Link to={`/profile/${post._id}`}>{post.user.name}</Link>
+                    <Link to={`/profile/${post.user._id}`}>{post.user.name}</Link>
                     <h5 className="purple">{post.status}, {post.location}</h5>
                     <Link to={`/forums/${post.category}`} >
                       Posted in <span className={styles.category}>{post.category}</span>
@@ -134,7 +135,7 @@ const ViewPost = () => {
                 {
                   post.comments.map(comment => {
                     return(
-                      <p style={{color:"charteuse"}}>{comment.text}</p>
+                      <PostComment comment={comment} />
                     )
                   })
                 }

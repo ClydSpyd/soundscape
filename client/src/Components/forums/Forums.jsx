@@ -1,17 +1,18 @@
 import React, { useEffect } from 'react';
 import BrowseForums from './BrowseForums';
 import { useParams, useRouteMatch } from 'react-router-dom';
-import { dummyPosts as posts } from '../../dummy_data/posts'
 import ForumsCategory from './ForumsCategory'
 
 import styles from './Forums.module.scss';
 import { Route, Switch } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const Forums = ({ toggleModalOverlay }) => {
   // The `path` lets us build <Route> paths that are
   // relative to the parent route, while the `url` lets
   // us build relative links.
   let { path, url } = useRouteMatch();
+  const posts = useSelector(state => state.post.posts)
 
   const params = useParams()
   useEffect(()=>{console.log(params)},[])

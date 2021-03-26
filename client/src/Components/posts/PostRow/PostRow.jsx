@@ -9,27 +9,27 @@ const PostRow = ({
   post: { 
   _id, 
   title, 
-  text, 
+  textPlain, 
   category, 
   likes, 
   comments, 
-  date,
+  createdOn,
   user, 
   user: { 
     name, 
     avatar
   }}}) => {
 
-  const postDate = format(date, 'EEEE MMM dd, yyyy')
+  const postDate = format(new Date(createdOn), 'EEEE MMM dd, yyyy')
 
   return (
     <div className={styles.postRow}>
       <div className={styles.top}>
         <img src={avatar} alt="user img"/>
-        <div className={styles.text}>
+        <Link to ={`/post/${_id}`} className={styles.text}>
           <h3>{title}</h3>
-          <p>{text}</p>
-        </div>
+          <p>{textPlain}</p>
+        </Link>
       </div>
       <div className={styles.bottom}>
         {
@@ -42,8 +42,8 @@ const PostRow = ({
         }
 
         <div className={styles.icons}>
-          <Link className={styles.commentLink} to={`/post/${_id}`} ><i className="far fa-comment-alt"></i><p>{comments}</p></Link>
-          <div className={styles.likeDiv}><i className="far fa-thumbs-up"></i><p>{likes}</p></div>
+          <Link className={styles.commentLink} to={`/post/${_id}`} ><i className="far fa-comment-alt"></i><p>{comments.length}</p></Link>
+          <div className={styles.likeDiv}><i className="far fa-thumbs-up"></i><p>{likes.length}</p></div>
         </div>
         
       </div>

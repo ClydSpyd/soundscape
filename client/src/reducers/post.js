@@ -44,11 +44,19 @@ export default function(state=initialState, action){
         error:payload
       }
     
-    case 'POST_LIKED':
-    case 'COMMENT_POSTED':  
+    case 'POST_LIKED': 
       return{
         ...state,
         post:payload
+      }
+    
+    case 'COMMENT_POSTED':  
+      return{
+        ...state,
+        post:{
+          ...state.post,
+          comments:payload.comments
+        }
       }
     
     case 'POST_ERROR_REFRESH':

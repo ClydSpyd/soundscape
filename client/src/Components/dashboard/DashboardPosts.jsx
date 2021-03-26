@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { fetchAllPosts } from '../../actions/postActions';
 import { dummyPosts } from '../../dummy_data/posts';
 import store from '../../store';
-import PostRowCompact from '../posts/PostRowCompact';
+import PostRowCompact from '../posts/PostRowCompact/PostRowCompact';
 
 import styles from './DashboardPosts.module.scss';
 

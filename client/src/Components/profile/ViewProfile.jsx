@@ -6,7 +6,7 @@ import { dummyProjects } from '../../dummy_data/projects';
 import titleCase from '../../helpers/titleCase';
 import store from '../../store';
 import DiscoveryItem from '../dashboard/DiscoveryItem';
-import PostRowCompact from '../posts/PostRowCompact';
+import PostRowCompact from '../posts/PostRowCompact/PostRowCompact';
 import EssentialItem from './EssentialItem'
 import styles from './ViewProfile.module.scss';
 
