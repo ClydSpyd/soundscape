@@ -38,13 +38,16 @@ const ViewPost = () => {
   // useEffect(()=>{if(postError)setCommentVis(false)},[postError])
 
   useEffect(()=>{ 
+    // refresh on redux post update
+    setCommentVis(false)
     if(post&&post.likes){ setIsLiked(post.likes.some(like => like.user === user._id)) }
   },[post])
 
   const handleSubmit = () => {
-    // const commentObject = { text: commentInputText };
-    const commentObject = { };
+    const commentObject = { text: commentInputText };
+    // const commentObject = { };
     store.dispatch(postComment(postId, commentObject))
+    setInputText('')
 
   }
   const errorRefresh = () => {
@@ -125,6 +128,16 @@ const ViewPost = () => {
                   <div onClick={handleSubmit} className={`${commentInputText === '' && 'disabled'} btn-blue`}>Submit</div>
                   <div onClick={e => { setCommentVis(false); setInputText(''); errorRefresh() }} className={`btn-purple_hollow`}>Cancel</div>
                 </div>
+              </div>
+
+              <div className={styles.comments}>
+                {
+                  post.comments.map(comment => {
+                    return(
+                      <p style={{color:"charteuse"}}>{comment.text}</p>
+                    )
+                  })
+                }
               </div>
 
 

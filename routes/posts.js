@@ -184,7 +184,8 @@ router.post('/comment/:post_id', [authMiddle, [
 
   try {
 
-    const post = await Post.findById(req.params.post_id)
+    // const post = await Post.findById(req.params.post_id)
+    const post = await Post.findById(req.params.post_id).lean().populate('user', [ 'name', 'avatar' ]) // POPULATE METHOD CREATING USER OBJECT FROM USER ID
     const user = await User.findById(req.user);
 
     if(!post){
@@ -201,7 +202,7 @@ router.post('/comment/:post_id', [authMiddle, [
 
     post.comments.unshift(newObject)
 
-    await post.save()
+    // await post.save()
 
     return res.status(200).json(post)
     
@@ -210,6 +211,8 @@ router.post('/comment/:post_id', [authMiddle, [
     console.error(err.message)
 
     res.status(500).send('server error')
+    // res.status(500).json({ errors: errors.array().map(({msg, param}) => ({msg, param})) })  
+    // @todo make the server error response match the validatore response
     
   }
 
