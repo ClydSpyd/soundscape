@@ -155,13 +155,17 @@
   }
 
   .main{
-    width: 1200px;
+    max-width: 1200px;
+    box-sizing:border-box;
+    padding:0 30px;
     margin:  10px auto;
     display: flex;
     justify-content: space-between;
 
     .left{
-      width: 80%;
+      // width: 80%;
+      min-width: calc(100% - 235px);
+      margin-right: 10px;
 
       .radios{
         height: 40px;
@@ -238,6 +242,7 @@
       width: calc(20% - 15px);
       min-width: 220px;
       margin-top: 40px;
+      margin-right: 5px;
     }
 
   }
