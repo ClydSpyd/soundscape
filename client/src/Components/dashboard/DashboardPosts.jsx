@@ -13,7 +13,7 @@ const DashboardPosts = () => {
 
   const statePosts = useSelector(state => state.post.posts)
 
-  return (
+  return !statePosts ? null : (
     <div className={styles.dashPosts}>
       <div className={styles.topBar}>
         <div className={styles.pill}>Top-Rated</div>

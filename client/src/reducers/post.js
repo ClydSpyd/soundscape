@@ -1,6 +1,6 @@
 const initialState = {
   loading:false,
-  posts:[],
+  posts:null,
   post:{},
   error:null
 }
@@ -18,8 +18,15 @@ export default function(state=initialState, action){
       }
 
     case 'POST_SUCCESS':
+      console.log(payload)
+      console.log({
+        ...state,
+        posts:payload,
+        loading:false,
+      })
       return{
         ...state,
+        posts:payload,
         loading:false,
       }
 

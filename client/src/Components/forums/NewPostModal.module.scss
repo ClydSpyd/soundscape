@@ -24,6 +24,17 @@
     }
   }
 
+  .spinner{
+    position: absolute;
+    top:240px;
+
+    img{
+      height: 70px;
+      width: 70px;
+
+    }
+  }
+
   input{
     outline: none;
     border:1px solid #cacaca;

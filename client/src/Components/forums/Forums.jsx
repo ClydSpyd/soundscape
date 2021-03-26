@@ -6,6 +6,9 @@ import ForumsCategory from './ForumsCategory'
 import styles from './Forums.module.scss';
 import { Route, Switch } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import store from '../../store';
+import { fetchAllPosts } from '../../actions/postActions';
+import LoaderDiv from '../layout/loaderDiv';
 
 const Forums = ({ toggleModalOverlay }) => {
   // The `path` lets us build <Route> paths that are
@@ -15,24 +18,34 @@ const Forums = ({ toggleModalOverlay }) => {
   const posts = useSelector(state => state.post.posts)
 
   const params = useParams()
-  useEffect(()=>{console.log(params)},[])
+
+  useEffect(()=>{ if(!posts) store.dispatch( fetchAllPosts() ) },[])
 
   return (
     <div className={`${styles.forumsContainer}`}>
-      <Switch>
 
-      <Route path={`${path}/:category`} component={()=> ( 
-          <ForumsCategory 
-            toggleModalOverlay={toggleModalOverlay}
-            category={params.category} 
-            posts={posts}/> 
-        )}/> 
-        <Route exact path={path} component={()=> (
-          <BrowseForums posts={posts}/> 
-        )}/> 
+      {
+        !posts ?
+          <div className={styles.loader}>
+            <LoaderDiv /> 
+          </div>
 
-        
-      </Switch>
+        :
+          <Switch>
+
+          <Route path={`${path}/:category`} component={()=> ( 
+              <ForumsCategory 
+                toggleModalOverlay={toggleModalOverlay}
+                category={params.category} 
+                posts={posts}/> 
+            )}/> 
+            <Route exact path={path} component={()=> (
+              <BrowseForums posts={posts}/> 
+            )}/> 
+
+            
+          </Switch>
+      }
       
     </div>
   )

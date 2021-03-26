@@ -17,7 +17,7 @@ const ViewProfile = ({ displayProfile:{ status, location, genres, projects, bio,
   const statePosts = useSelector(state => state.post.posts)
   const  [userPosts, setUserPosts ] = useState(null)
   useEffect(()=>{ if(!statePosts) store.dispatch( fetchAllPosts() ) },[])
-  useEffect(()=>{ setUserPosts(statePosts.filter(post => post.user._id === userId )) },[statePosts])
+  useEffect(()=>{ if(statePosts)setUserPosts(statePosts.filter(post => post.user._id === userId )) },[statePosts])
 
  
   

@@ -68,12 +68,19 @@ export const createNewPost = (postObject) => async dispatch => {
     const res = await axios.post('http://localhost:5000/api/posts', body, config)
 
     console.log(res)
-    dispatch({ type: 'POST_SUCCESS' })
+
+    setTimeout(()=>{
+      dispatch({ 
+        type: 'POST_SUCCESS',
+        payload:res.data.posts
+       })
+    }, 500)
     
   } catch (err) {
     
-    console.log(err.response.data)
-    dispatch({ type: 'POST_ERROR', payload:err.response.data.errors[0] })
+    console.log(err)
+    console.log(err)
+    dispatch({ type: 'POST_ERROR', payload:'ERROR' })
     
   }
 
@@ -153,7 +160,11 @@ export const postComment = ( postId, commentObject ) => async dispatch => {
   } catch (err) {
     
     console.log(err.response)
-    dispatch({ type: 'POST_ERROR', payload:err.response.data.errors[0].msg })
+    
+    const payloadError = err.response.data.msg ? err.response.data.msg : err.response.data
+    
+    console.log(payloadError)
+    dispatch({ type: 'POST_ERROR', payload:payloadError })
     
   }
 

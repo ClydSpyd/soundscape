@@ -17,7 +17,7 @@ router.get('/', async (req, res) => {
     
   try {
 
-    const posts = await Post.find().populate('user', [ 'name', 'avatar' ])
+    const posts = await Post.find().sort({ createdOn: -1 }).populate('user', [ 'name', 'avatar' ])
 
     res.json(posts)
     
@@ -104,8 +104,10 @@ router.post('/', [authMiddle,[
     })
   
     await newPost.save()
+
+    const newPosts = await Post.find().sort({ createdOn: -1 }).populate('user', [ 'name', 'avatar' ])
   
-    res.json({msg:"success!", post: newPost})
+    res.json({msg:"success!", posts: newPosts})
     
   } catch (err) {
     
