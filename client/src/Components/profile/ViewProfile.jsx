@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
+import { v4 as uuidv4 } from 'uuid'
+
 import { fetchAllPosts } from '../../actions/postActions';
 import { dummyProjects } from '../../dummy_data/projects';
 import titleCase from '../../helpers/titleCase';
@@ -10,8 +12,9 @@ import PostRowCompact from '../posts/PostRowCompact/PostRowCompact';
 import EssentialItem from './EssentialItem'
 import styles from './ViewProfile.module.scss';
 
-const ViewProfile = ({ displayProfile:{ status, location, genres, projects, bio, facebook, instagram, youtube, spotify, soundcloud, twitter, essentialListening, user: {name, avatar } }, isMe, setShowVideo, userId, toggleModalOverlay }) => {
+const ViewProfile = ({ displayProfile:{ status, location, genres, projects, bio, facebook, instagram, youtube, spotify, soundcloud, twitter, essentialListening, chats, user: {name, avatar, _id } }, isMe, setShowVideo, userId, toggleModalOverlay }) => {
 
+  const history = useHistory()
   const firstName = name.split(' ')[0];
   const hasSocial = facebook || instagram || youtube || spotify || soundcloud || twitter;
   const statePosts = useSelector(state => state.post.posts)
@@ -19,7 +22,22 @@ const ViewProfile = ({ displayProfile:{ status, location, genres, projects, bio,
   useEffect(()=>{ if(!statePosts) store.dispatch( fetchAllPosts() ) },[])
   useEffect(()=>{ if(statePosts)setUserPosts(statePosts.filter(post => post.user._id === userId )) },[statePosts])
 
- 
+ const handleChat = () => {
+    if(!chats){
+      const chatId = uuidv4()
+      const newChat = {
+        user:{
+          avatar,
+          name,
+          _id,
+        },
+        chatId
+      }
+      console.log(newChat)
+      localStorage.setItem('newChat', JSON.stringify(newChat))
+      history.push('/inbox')
+    }
+ }
   
   // const essentialItems = [
   //   {
@@ -63,7 +81,7 @@ const ViewProfile = ({ displayProfile:{ status, location, genres, projects, bio,
               :
 
               <>
-              <div className={"btn-blue sml"}> <i class="fas fa-comment-alt"></i> Message</div>
+                <div onClick={handleChat} className={"btn-blue sml"}> <i class="fas fa-comment-alt"></i> Message</div>
                 <div className={"btn-blue sml"}><i class="fas fa-user-plus"></i>Follow</div>
               </>
             }

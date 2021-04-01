@@ -2,19 +2,67 @@
 
 
 .chatContainer{
+  height: calc(100vh - 70px);
+  box-sizing:border-box;
+  width: 100%;
+  display: flex;
+  border:1px solid chartreuse;
   position: relative;
-  top:100px;
+  top:70px;
 
-  .chatMessages{
-    height: 100px;
-    width: 500px;
-    border:1px solid chartreuse;
+
+  .conversations,
+  .chatWindow{
+    height: 100%;
   }
-  
-      input{
-        border:1px solid chartreuse !important;
+
+  .conversations{
+    width: 300px;
+    border:1px solid #dddddd;
+    background-color: #f2f2f2;
+  }
+  .chatWindow{
+    width: calc(100% - 300px);
+    box-sizing:border-box;
+
+    .messages{
+      width: 100%;
+      height: calc(100% - 70px);
+      padding: 10px 15px;
+    }
+
+    form.inputDiv{
+      display: flex;
+      justify-content: space-between;
+      box-sizing:border-box;
+      padding:10px;
+
+      input,
+      button{
+        height:50px;
       }
 
+      button{
+        width: 140px;
+        font-size: 18px;
+        background-color: $turquiose;
+        color: white;
+        cursor: pointer;
 
+        i{
+          font-size: 20px;
+          margin-left: 5px;
+          position: relative;
+          top:1px
+        }
+      }
 
+      input{
+        width: calc(100% - 150px);
+        padding:0 10px;
+        background-color: #f2f2f2;
+        border:1px solid #dddddd;
+      }
+    }
+  }
 }

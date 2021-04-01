@@ -1,0 +1,41 @@
+@import '../../styles/App.scss';
+
+.messageDiv{
+
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin:  8px 0;
+
+  &.isMe{
+    justify-content: flex-end;
+  }
+
+
+  img{
+    height: 50px;
+    width: 50px;
+    margin-right: 10px;
+  }
+
+  .inner{
+    padding:15px;
+    min-width: 160px;
+    max-width: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    min-height: 70px;
+    border-radius: 10px 10px 10px 0;
+    border:1px solid $turquiose;
+    color: $turquiose;    
+    &.isMe{
+      border-radius: 10px 10px 0 10px;
+      border:1px solid $purple;
+      color: $purple;
+    }
+
+  }
+
+}

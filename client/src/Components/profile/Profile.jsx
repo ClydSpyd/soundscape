@@ -21,11 +21,7 @@ const Profile = ({ navRef, setShowVideo, toggleModalOverlay }) => {
 
   useEffect(()=>{
 
-    if(!isMe){
-      store.dispatch(getProfile(profileParam))
-      console.log('fetch user profile')
-      console.log(profileParam)
-    }
+    if(!isMe){ store.dispatch(getProfile(profileParam)) }
     
 
   },[])
