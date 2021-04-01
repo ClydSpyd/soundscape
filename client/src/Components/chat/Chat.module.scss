@@ -1,0 +1,20 @@
+@import '../../styles/App.scss';
+
+
+.chatContainer{
+  position: relative;
+  top:100px;
+
+  .chatMessages{
+    height: 100px;
+    width: 500px;
+    border:1px solid chartreuse;
+  }
+  
+      input{
+        border:1px solid chartreuse !important;
+      }
+
+
+
+}

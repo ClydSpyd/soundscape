@@ -2,6 +2,9 @@ import React, { useEffect, useRef } from 'react';
 import { Route, Switch, useLocation } from 'react-router-dom'
 import { useSelector } from 'react-redux';
 import { loadUser } from './actions/authActions';
+import io from 'socket.io-client';
+
+import openSocket from 'socket.io-client';
 
 import './styles/App.scss';
 import store from './store'
@@ -18,17 +21,33 @@ import Forums from './Components/forums/Forums';
 import ModalOverlay from './Components/layout/ModalOverlay';
 import { updateModalContent } from './actions/modalContentActions';
 import ViewPost from './Components/posts/ViewPost';
+import Chat from 'Components/chat/Chat';
 
 
 const App= () => {
 
+  const auth = useSelector(state => state.auth)
   const location = useLocation()
   const navRef = useRef()
+  const modalVis = useSelector(state => state.modalContent.vis)
+  const ENDPOINT = "http://127.0.0.1:5000";
+  const socket = openSocket(ENDPOINT, {transports: ['websocket']})
   
   const toggleModalOverlay = (vis, component) => store.dispatch(updateModalContent({vis, component}))
-  const modalVis = useSelector(state => state.modalContent.vis)
-  useEffect(()=>{ store.dispatch(loadUser()) },[])
+
+  
+  useEffect(()=>{ 
+    store.dispatch(loadUser()) 
+  },[])
   useEffect(()=>{store.dispatch(updateModalContent({vis:false, component:null}))},[location])
+
+  useEffect(() => { 
+
+    if(auth?.user?.name){
+      socket.on('connect', socket => console.log(auth.user.name + ' connected'))
+
+    }
+  }, [auth]); 
   
 
   return (
@@ -53,6 +72,8 @@ const App= () => {
         <Route exact path="/register" component={Register} />
 
         <PrivateRoute exact path="/dashboard" component={Dashboard} />
+        
+        <PrivateRoute exact path="/inbox" component={()=> <Chat socket={socket} />} />
 
         <Route path="/forums/:category?" component={()=> 
           <Forums toggleModalOverlay={toggleModalOverlay}/>} />
@@ -72,3 +93,27 @@ const App= () => {
 }
 
 export default App;
+
+
+
+
+// import React, { useState, useEffect } from "react";
+// import socketIOClient from "socket.io-client";
+// const ENDPOINT = "http://127.0.0.1:5000";
+
+// function App() {
+//   const [response, setResponse] = useState("");
+
+//   useEffect(() => {
+//     const socket = socketIOClient(ENDPOINT);
+
+//   }, []);
+
+//   return (
+//     <p>
+//       It's hemlo
+//     </p>
+//   );
+// }
+
+// export default App;

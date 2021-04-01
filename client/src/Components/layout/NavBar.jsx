@@ -12,8 +12,6 @@ const NavBar = ({landing, navRef, clear, dark, profile}) => {
   const handleLogout = () => { store.dispatch( logout(history) )}
   const { isSticky } = useSticky()
 
-  useEffect(()=>{console.log(isSticky)},[isSticky])
-
   const authLinks = (
     <ul>
       <li><NavLink activeClassName="nav_active" to="/profile/me"><i className="fas fa-user"></i>{'  '} <span className="hide.sm">Profile</span></NavLink></li>

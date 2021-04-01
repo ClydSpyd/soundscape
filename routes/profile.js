@@ -27,8 +27,6 @@ router.get('/:user_id', authMiddle, async (req, res) => {
     }
 
 
-    console.log(profile)
-
     res.json(profile)
 
   } catch (err) {
@@ -50,7 +48,6 @@ router.get('/:user_id', authMiddle, async (req, res) => {
 router.get('/', authMiddle, async (req, res) => {
 
   try {
-    console.log(req.user)
 
     const profile = await Profile.findOne({ user: req.user }).populate('user', [ 'name', 'avatar'])
 
@@ -60,7 +57,6 @@ router.get('/', authMiddle, async (req, res) => {
       })
     }
 
-    console.log(profile)
     res.json(profile)
 
   } catch (err) {
@@ -77,7 +73,6 @@ router.get('/', authMiddle, async (req, res) => {
 // @access    private
 router.post('/', authMiddle, async (req, res) => {
 
-  console.log(req.body)
 
   const dbUser = await (await User.findById(req.user).select('-password'));
 
@@ -134,7 +129,6 @@ router.post('/', authMiddle, async (req, res) => {
       }
     }
     
-    console.log(profile)
     if(profile){
       //update
       profile = await Profile.findOneAndUpdate({ user: req.user }, { $set: profileObject }, { new: true })
