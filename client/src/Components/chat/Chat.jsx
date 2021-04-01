@@ -1,8 +1,9 @@
 import React, { useRef, useState } from 'react';
+import { socket } from 'socket.service';
 
 import styles from './Chat.module.scss';
 
-const Chat = ({socket}) => {
+const Chat = () => {
 
   const inputRef = useRef()
   const chatMessages = useRef()
@@ -11,7 +12,6 @@ const Chat = ({socket}) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
     socket.emit('chatMessage', inputRef.current.value)
     console.log(inputRef.current.value)
     inputRef.current.value = ''

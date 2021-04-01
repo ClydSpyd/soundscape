@@ -2,10 +2,6 @@ import React, { useEffect, useRef } from 'react';
 import { Route, Switch, useLocation } from 'react-router-dom'
 import { useSelector } from 'react-redux';
 import { loadUser } from './actions/authActions';
-import io from 'socket.io-client';
-
-import openSocket from 'socket.io-client';
-
 import './styles/App.scss';
 import store from './store'
 
@@ -26,29 +22,15 @@ import Chat from 'Components/chat/Chat';
 
 const App= () => {
 
-  const auth = useSelector(state => state.auth)
   const location = useLocation()
   const navRef = useRef()
   const modalVis = useSelector(state => state.modalContent.vis)
-  const ENDPOINT = "http://127.0.0.1:5000";
-  const socket = openSocket(ENDPOINT, {transports: ['websocket']})
   
   const toggleModalOverlay = (vis, component) => store.dispatch(updateModalContent({vis, component}))
 
-  
-  useEffect(()=>{ 
-    store.dispatch(loadUser()) 
-  },[])
+  useEffect(()=>{ store.dispatch(loadUser()) },[])
   useEffect(()=>{store.dispatch(updateModalContent({vis:false, component:null}))},[location])
 
-  useEffect(() => { 
-
-    if(auth?.user?.name){
-      socket.on('connect', socket => console.log(auth.user.name + ' connected'))
-
-    }
-  }, [auth]); 
-  
 
   return (
 
@@ -73,7 +55,7 @@ const App= () => {
 
         <PrivateRoute exact path="/dashboard" component={Dashboard} />
         
-        <PrivateRoute exact path="/inbox" component={()=> <Chat socket={socket} />} />
+        <PrivateRoute exact path="/inbox" component={()=> <Chat />} />
 
         <Route path="/forums/:category?" component={()=> 
           <Forums toggleModalOverlay={toggleModalOverlay}/>} />

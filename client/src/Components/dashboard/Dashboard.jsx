@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { dummyDicoveries } from '../../dummy_data/discoveries';
@@ -10,11 +10,15 @@ import DashboardPosts from './DashboardPosts';
 import DashSidebar from './DashSidebar';
 import DiscoveryItem from './DiscoveryItem';
 
-const Dashboard = () => {
+const Dashboard = ({ }) => {
 
   const auth = useSelector(state => state.auth)
   const profile = useSelector(state => state.profile)
   const { loading, user } = auth;
+
+  useEffect(() => { 
+    console.log('ERE')
+  }, []); 
 
   return (
     <div className="section-container left-top-padd shift-down full-width flex">
