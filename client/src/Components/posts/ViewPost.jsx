@@ -15,10 +15,11 @@ const ViewPost = () => {
   const { postId } = useParams()
   const { loading, post } = useSelector( state => state.post )
   const { user } = useSelector( state => state.auth )
+  const isAuthenticated = useSelector(state=>state.auth.isAuthenticated)
+  const postError = useSelector(state => state.post.error)
   const [ isLiked, setIsLiked ] = useState(false)
   const [ commentVis, setCommentVis ] = useState(false)
   const [ commentInputText, setInputText ] = useState('');
-  const postError = useSelector(state => state.post.error)
 
 
   useEffect(()=>{ 
@@ -103,8 +104,12 @@ const ViewPost = () => {
                 </h4>
 
 
-                <div className={`${styles.newCommentBtn} ${commentVis && !postError && 'zero-opacity'} btn-blue_hollow`}
-                  onClick={handleNewCommentClick}>New Comment<span >+</span> </div>
+                {isAuthenticated &&
+                
+                  <div className={`${styles.newCommentBtn} ${commentVis && !postError && 'zero-opacity'} btn-blue_hollow`}
+                    onClick={handleNewCommentClick}>New Comment<span >+</span> </div>
+                    
+                }
 
                 { postError && <div className={styles.postErrorMsg}>{"Something went wrong :("}</div>}
 

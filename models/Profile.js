@@ -22,6 +22,19 @@ const ProfileSchema = new mongoose.Schema({
     type:[ mongoose.Schema.Types.ObjectId ],
     ref: 'discovery'
   },
+  essentialListening:[
+    {
+      title:{
+        type: String
+      },
+      artist:{
+        type: String
+      },
+      itemUrl:{
+        type: String
+      }
+    }
+  ],
   spotify:{
     type: String
   },

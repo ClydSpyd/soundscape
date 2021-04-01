@@ -1,0 +1,61 @@
+@import '../../../styles/App.scss';
+
+.AddEssentialModal{
+  height: 300px;
+  width: 800px;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  position: relative;
+
+  h5{
+    width: 700px;
+    text-align: left;
+    margin-bottom: 10px;
+
+    span{
+      text-decoration: none;
+    }
+
+  }
+
+  .spinner{
+    position: absolute;
+    top:240px;
+
+    img{
+      height: 70px;
+      width: 70px;
+
+    }
+  }
+
+  input{
+    outline: none;
+    border:1px solid #cacaca;
+    width: 700px;
+    padding: 10px;
+    font-size: 16px;
+    margin-bottom: 5px;
+  }
+
+  .buttons{
+    width: 700px;
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 15px;
+  }
+
+  .btn{
+    font-size: 17px;
+    line-height: 40px;
+    height: 40px;
+    width: 180px;
+    position: relative;
+    left:5px;
+  }
+
+}

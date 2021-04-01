@@ -21,28 +21,28 @@ const ViewProfile = ({ displayProfile:{ status, location, genres, projects, bio,
 
  
   
-  const essentialItems = [
-    {
-      artist:"Primus",
-      title:"Tommy The Cat",
-      itemUrl:"https://youtu.be/r4OhIU-PmB8"
-    },
-    {
-      artist:"Queens of the Stone Age",
-      title:"Noone Knows",
-      itemUrl:"https://youtu.be/s88r_q7oufE"
-    },
-    {
-      artist:"Foo Fighters",
-      title:"Everlong",
-      itemUrl:"https://www.youtube.com/watch?v=eBG7P-K-r1Y&ab_channel=foofightersVEVO"
-    },
-    // {
-    //   artist:"Primus",
-    //   title:"Tommy The Cat",
-    //   itemUrl:"https://www.dailymotion.com/video/x1h0pwb"
-    // },
-  ]
+  // const essentialItems = [
+  //   {
+  //     artist:"Primus",
+  //     title:"Tommy The Cat",
+  //     itemUrl:"https://youtu.be/r4OhIU-PmB8"
+  //   },
+  //   {
+  //     artist:"Queens of the Stone Age",
+  //     title:"Noone Knows",
+  //     itemUrl:"https://youtu.be/s88r_q7oufE"
+  //   },
+  //   {
+  //     artist:"Foo Fighters",
+  //     title:"Everlong",
+  //     itemUrl:"https://www.youtube.com/watch?v=eBG7P-K-r1Y&ab_channel=foofightersVEVO"
+  //   },
+  //   // {
+  //   //   artist:"Primus",
+  //   //   title:"Tommy The Cat",
+  //   //   itemUrl:"https://www.dailymotion.com/video/x1h0pwb"
+  //   // },
+  // ]
 
   return (
     <div className={`${styles.viewProfile}`}>
@@ -128,7 +128,7 @@ const ViewProfile = ({ displayProfile:{ status, location, genres, projects, bio,
 
             <div className={styles.items}>
               {
-                essentialItems.map((item, idx) => {
+                essentialListening.map((item, idx) => {
                   return <EssentialItem
                     toggleModalOverlay={toggleModalOverlay}
                     setShowVideo={setShowVideo}

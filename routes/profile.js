@@ -67,7 +67,7 @@ router.get('/', authMiddle, async (req, res) => {
 
     console.error(err.message)
 
-    res.status(500).send('server error')
+    res.status(500).json({ msg: 'Server Error' })
   }
 
 })
@@ -94,6 +94,7 @@ router.post('/', authMiddle, async (req, res) => {
     facebook,
     instagram,
     twitter,
+    essentialListening,
     user
   } = req.body;
 
@@ -105,6 +106,7 @@ router.post('/', authMiddle, async (req, res) => {
   if (location) profileObject.location = location
   if (bio) profileObject.bio = bio
   if (status) profileObject.status = status
+  if (essentialListening) profileObject.essentialListening = essentialListening
   if (genres) {
     profileObject.genres = typeof genres === 'string' ? genres.split(',').map(genre => genre.trim()) : genres
   }
@@ -150,7 +152,7 @@ router.post('/', authMiddle, async (req, res) => {
 
     console.error(err.message)
 
-    res.status(500).send('server error')
+    res.status(500).json({ msg: 'Server Error' })
 
   }
 
@@ -182,7 +184,7 @@ router.post('/update_user', authMiddle, async (req, res) => {
    
     console.error(error.message)
 
-    res.status(500).send('server error')
+    res.status(500).json({ msg: 'Server Error' })
 
   }
 })

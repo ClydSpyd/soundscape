@@ -44,6 +44,7 @@ const Profile = ({ navRef, setShowVideo, toggleModalOverlay }) => {
         :
         isEdit && !profile.me ?
           <EditProfile 
+            toggleModalOverlay={toggleModalOverlay}
             navRef={navRef} 
             stateProfile={initialProfile} 
             saved={profile.saved}
@@ -52,6 +53,7 @@ const Profile = ({ navRef, setShowVideo, toggleModalOverlay }) => {
       :
         isEdit && profile.me ?
           <EditProfile 
+            toggleModalOverlay={toggleModalOverlay}
             navRef={navRef} 
             stateProfile={{...profile.me, genres: typeof !profile.me.genres ? '' : profile.me.genres === 'string' ? profile.me.genres :  profile.me.genres.join(', ')}} 
             saved={profile.saved}

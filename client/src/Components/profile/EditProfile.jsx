@@ -8,8 +8,9 @@ import styles from './Profile.module.scss';
 import { saveProfile, uploadImage } from '../../actions/profileActions';
 import { useHistory } from 'react-router-dom';
 import BlockNavigationModal from '../utility_comps/BlockNavigationModal';
+import AddEssentialModal from './AddEssentialModal/AddEssentialModal';
 
-const EditProfile = ({ stateProfile, saving, saved, navRef }) => {
+const EditProfile = ({ stateProfile, saving, saved, navRef, toggleModalOverlay }) => {
 
   
   const [ isEqualState, setIsEqualState ] = useState(true)
@@ -145,7 +146,7 @@ const EditProfile = ({ stateProfile, saving, saved, navRef }) => {
               <i className="fas fa-plus"></i>
               <p>Add Project</p>
             </div>
-            <div className={`${styles.block} ${styles.essential}`}>
+            <div onClick={()=>toggleModalOverlay(true, <AddEssentialModal />)} className={`${styles.block} ${styles.essential}`}>
               <i className="fas fa-plus"></i>
               <p>Add Essential Listening</p>
             </div>

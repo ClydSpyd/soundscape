@@ -46,7 +46,7 @@ export const profileSaved = () =>  dispatch => {
 }
 
 
-export const saveProfile = (formData, history) => async dispatch => {
+export const saveProfile = ( formData ) => async dispatch => {
   
   console.log('save_profile')
   console.log(formData)
