@@ -11,6 +11,13 @@ const useSocket = (io) => {
       console.log(message)
       io.emit('message', message)
     })
+
+
+  //run when a client disconnects
+  socket.on('disconnect', () => {
+
+    console.log('socket ' + socket.id + ' disconnected')
+  })
   })
 
 }

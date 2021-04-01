@@ -1,5 +1,5 @@
-import React, { useRef, useState } from 'react';
-import { socket } from 'socket.service';
+import React, { useContext, useRef, useState } from 'react';
+import { SocketContext } from 'socket.service';
 
 import styles from './Chat.module.scss';
 
@@ -7,7 +7,7 @@ const Chat = () => {
 
   const inputRef = useRef()
   const chatMessages = useRef()
-
+  const socket = useContext(SocketContext)
   const [messages, setMessages] = useState([])
 
   const handleSubmit = (e) => {
@@ -15,7 +15,6 @@ const Chat = () => {
     socket.emit('chatMessage', inputRef.current.value)
     console.log(inputRef.current.value)
     inputRef.current.value = ''
-
   }
 
   //run on receipt of message from server

@@ -18,6 +18,7 @@ import ModalOverlay from './Components/layout/ModalOverlay';
 import { updateModalContent } from './actions/modalContentActions';
 import ViewPost from './Components/posts/ViewPost';
 import Chat from 'Components/chat/Chat';
+import { SocketContext, socket } from 'socket.service';
 
 
 const App= () => {
@@ -34,7 +35,7 @@ const App= () => {
 
   return (
 
-    <>
+    <SocketContext.Provider value={socket}>
       <Switch> {/* navbar switch  */}
         <Route exact path="/" component={null} />
         <Route exact path="/login" component={null} />
@@ -70,7 +71,7 @@ const App= () => {
         <ModalOverlay closeModal = {()=> toggleModalOverlay(false, null) }/> }
       
 
-    </>
+    </SocketContext.Provider >
   );
 }
 
