@@ -3,15 +3,21 @@ import { useSelector } from 'react-redux';
 import { SocketContext } from 'socket.service';
 
 import styles from './Chat.module.scss';
+import ConversationDiv from './conversationDiv';
 import MessageDiv from './MessageDiv';
 
 const Chat = () => {
 
   const user = useSelector(state => state.auth?.user)
   const inputRef = useRef()
-  const chatMessages = useRef()
+
   const socket = useContext(SocketContext)
-  const [messages, setMessages] = useState([])
+
+  const [ messages, setMessages ] = useState([])
+  const [ conversations, setConversations ] = useState([])
+  const [ selectedConvo, setSelectedConvo ] = useState(conversations.length&&conversations[0])
+
+  const switchCovo = (_id) => setSelectedConvo(conversations.find(i => i.user._id === _id))
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -20,27 +26,30 @@ const Chat = () => {
         avatar:user.avatar,
         _id:user._id,
       },
+      chatters:[user._id, selectedConvo.user._id],
+      chatId:selectedConvo.chatId,
       createdOn: new Date(),
       text:inputRef.current.value
     }
-    console.log(newMessage)
     socket.emit('chatMessage', newMessage)
     inputRef.current.value = ''
   }
 
-  //run on receipt of message from server
-  socket.on('message', message => {
-    setMessages([...messages, message])
-
-  })
-
   useEffect(() => {
-    
+  
+    const newChatStorage = JSON.parse(localStorage.getItem('newChat'))
+    if(newChatStorage){
+      setConversations([...conversations, newChatStorage])
+      setSelectedConvo(newChatStorage)
+    }
     return () => {
       localStorage.removeItem('newChat')
     }
   }, [])
 
+  const renderMessage = (userId, chatId) => {
+    return selectedConvo.chatId === chatId
+  }
 
 
   return (
@@ -48,15 +57,23 @@ const Chat = () => {
 
       <div className={styles.conversations}>
 
+        {
+          conversations.map((item, idx) => 
+            <ConversationDiv 
+              switchCovo={switchCovo}
+              item={item} /> )
+        }
+
       </div>
       <div className={styles.chatWindow}>
         <div className={styles.messages}>
           {
             messages.map((message, idx)=>
-              <MessageDiv 
-                myId={user._id}
-                key={idx} 
-                message={message} />
+              renderMessage(user._id, message.chatId) && 
+                <MessageDiv 
+                  myId={user._id}
+                  key={idx} 
+                  message={message} />
             )
           }
         </div>
