@@ -14,6 +14,7 @@ import styles from './ViewProfile.module.scss';
 
 const ViewProfile = ({ displayProfile:{ status, location, genres, projects, bio, facebook, instagram, youtube, spotify, soundcloud, twitter, essentialListening, chats, user: {name, avatar, _id } }, isMe, setShowVideo, userId, toggleModalOverlay }) => {
 
+  const chatData = useSelector(state=>state.chatData)
   const history = useHistory()
   const firstName = name.split(' ')[0];
   const hasSocial = facebook || instagram || youtube || spotify || soundcloud || twitter;
@@ -23,7 +24,7 @@ const ViewProfile = ({ displayProfile:{ status, location, genres, projects, bio,
   useEffect(()=>{ if(statePosts)setUserPosts(statePosts.filter(post => post.user._id === userId )) },[statePosts])
 
  const handleChat = () => {
-    if(!chats){
+    if(!chatData.conversations?.map(i=>i.user._id).includes(_id)){
       const chatId = uuidv4()
       const newChat = {
         user:{
@@ -35,8 +36,12 @@ const ViewProfile = ({ displayProfile:{ status, location, genres, projects, bio,
       }
       console.log(newChat)
       localStorage.setItem('newChat', JSON.stringify(newChat))
-      history.push('/inbox')
+
+    } else {
+
+      localStorage.setItem('chatter', _id)
     }
+    history.push('/inbox')
  }
   
   // const essentialItems = [

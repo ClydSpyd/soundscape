@@ -11,6 +11,7 @@ import MessageDiv from './MessageDiv';
 const Chat = () => {
 
   const newChatStorage = JSON.parse(localStorage.getItem('newChat')) //if user is instatiating new conversation
+  const chatTarget = localStorage.getItem('chatter')//if user is opening existing chat
 
   const user = useSelector(state => state.auth?.user)
   const stateConversations = useSelector(state => state.chatData.conversations)
@@ -33,10 +34,11 @@ const Chat = () => {
       chatters:[user._id, selectedConvo.user._id],
       isNew:newChatStorage
     }
-    
+
     inputRef.current.value = ''
-    
+
     sendMessage(newMessage)
+    
     if(newChatStorage){
       store.dispatch(addConversation(newChatStorage))
       localStorage.removeItem('newChat')
@@ -44,21 +46,26 @@ const Chat = () => {
   }
 
   useEffect(() => {
-  
-    if(newChatStorage){
-      setConversations([...conversations, newChatStorage])
-      setSelectedConvo(newChatStorage)
-    }
-    return () => {
-      localStorage.removeItem('newChat')
-    }
-  }, [])
 
-  useEffect(() => {
     if(stateConversations.length>conversations.length){
       setConversations(stateConversations)
       setSelectedConvo(stateConversations[stateConversations.length-1])
     }
+
+    if(newChatStorage){
+      setConversations([...conversations, newChatStorage])
+      setSelectedConvo(newChatStorage)
+    }
+
+    if(chatTarget){
+      setSelectedConvo(conversations.find(i => i.user._id === chatTarget))
+      // @todo select correct convo when chatter key is present in LS
+    }
+    return () => {
+      localStorage.removeItem('newChat')
+      localStorage.removeItem('chatter')
+    }
+
   }, [stateConversations])
 
 
