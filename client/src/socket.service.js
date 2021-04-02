@@ -12,20 +12,24 @@ export const initiateSocket = (user) => {
       if(message.chatters.includes(user._id)){
 
         console.log('I am included')
-
-        const { text, user, createdOn, chatId} = message
+        const { text, createdOn, chatId} = message
         const newMsg = {
           text,
-          user,
+          user:message.user,
           createdOn,
           chatId
         }
-        
-        console.log(message.chatObj)
 
         store.dispatch(messageReceived(newMsg))
 
-        if(message.chatObj)store.dispatch(addConversation(message.chatObj))
+        if(message.isNew?.user._id===user._id){ //is it a new conversation?
+          const newConv = {
+            chatId:message.chatId,
+            user:message.user //assign user as me
+          }
+         
+          store.dispatch(addConversation(newConv))
+        }
       }
     })
   }

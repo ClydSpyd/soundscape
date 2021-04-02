@@ -1,6 +1,8 @@
+import { addConversation, messageReceived } from 'actions/chatActions';
 import React, { useContext, useRef, useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { sendMessage, SocketContext } from 'socket.service';
+import store from 'store';
 
 import styles from './Chat.module.scss';
 import ConversationDiv from './conversationDiv';
@@ -32,15 +34,15 @@ const Chat = () => {
       user:user,
       chatId:selectedConvo.chatId,
       chatters:[user._id, selectedConvo.user._id],
-      chatObj:localStorage.getItem('newChat')&&{ //send new convo obj is it is new chat
-        ...newChatStorage, 
-        user: user //switch target user for logged in user as that is what's needed on the recipient's end
-      }
+      isNew:newChatStorage
     }
-    console.log(newMessage)
+    
     sendMessage(newMessage)
+    if(newChatStorage){
+      store.dispatch(addConversation(newChatStorage))
+      localStorage.removeItem('newChat')
+    }
     inputRef.current.value = ''
-    localStorage.removeItem('newChat')
   }
 
   useEffect(() => {
