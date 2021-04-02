@@ -18,11 +18,12 @@ import ModalOverlay from './Components/layout/ModalOverlay';
 import { updateModalContent } from './actions/modalContentActions';
 import ViewPost from './Components/posts/ViewPost';
 import Chat from 'Components/chat/Chat';
-import { SocketContext, socket } from 'socket.service';
+import { initiateSocket } from 'socket.service';
 
 
 const App= () => {
 
+  const auth = useSelector(state => state.auth)
   const location = useLocation()
   const navRef = useRef()
   const modalVis = useSelector(state => state.modalContent.vis)
@@ -32,10 +33,17 @@ const App= () => {
   useEffect(()=>{ store.dispatch(loadUser()) },[])
   useEffect(()=>{store.dispatch(updateModalContent({vis:false, component:null}))},[location])
 
+  useEffect(()=>{
+    if(auth?.user){
+      initiateSocket(auth.user)
+    }
+  },[auth])
+
 
   return (
 
-    <SocketContext.Provider value={socket}>
+    // <SocketContext.Provider value={socket}>
+    <>
       <Switch> {/* navbar switch  */}
         <Route exact path="/" component={null} />
         <Route exact path="/login" component={null} />
@@ -71,7 +79,8 @@ const App= () => {
         <ModalOverlay closeModal = {()=> toggleModalOverlay(false, null) }/> }
       
 
-    </SocketContext.Provider >
+    </>
+    // </SocketContext.Provider >
   );
 }
 

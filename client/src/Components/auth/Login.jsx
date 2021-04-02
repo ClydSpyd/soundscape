@@ -4,6 +4,7 @@ import { loginUser, clearError } from '../../actions/authActions';
 import { Link, Redirect } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { addAnimation } from '../../helpers/addAnimation';
+import { disconnectSocket } from 'socket.service';
 
 const Login = () => {
 
@@ -17,6 +18,7 @@ const Login = () => {
   }
 
   useEffect(()=>{ 
+    disconnectSocket()
     if(auth.error){clear()}
     setTimeout(()=>{
       if(formRef.current){formRef.current.classList.remove('zero-opacity')}

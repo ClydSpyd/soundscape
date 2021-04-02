@@ -1,6 +1,6 @@
 import React, { useContext, useRef, useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { SocketContext } from 'socket.service';
+import { sendMessage, SocketContext } from 'socket.service';
 
 import styles from './Chat.module.scss';
 import ConversationDiv from './conversationDiv';
@@ -8,36 +8,43 @@ import MessageDiv from './MessageDiv';
 
 const Chat = () => {
 
+  const newChatStorage = JSON.parse(localStorage.getItem('newChat')) //if user is instatiating new conversation
+
   const user = useSelector(state => state.auth?.user)
+  const stateConversations = useSelector(state => state.chatData.conversations)
+  const messages = useSelector(state => state.chatData.messages)
+  
+  const [ conversations, setConversations ] = useState(stateConversations)
+  const [ selectedConvo, setSelectedConvo ] = useState(conversations.length&&conversations[0])
+  
   const inputRef = useRef()
 
-  const socket = useContext(SocketContext)
-
-  const [ messages, setMessages ] = useState([])
-  const [ conversations, setConversations ] = useState([])
-  const [ selectedConvo, setSelectedConvo ] = useState(conversations.length&&conversations[0])
-
-  const switchCovo = (_id) => setSelectedConvo(conversations.find(i => i.user._id === _id))
+  const switchCovo = (_id) => {
+    setSelectedConvo(conversations.find(i => i.user._id === _id))
+    console.log(_id)
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
     const newMessage = {
-      user:{
-        avatar:user.avatar,
-        _id:user._id,
-      },
-      chatters:[user._id, selectedConvo.user._id],
-      chatId:selectedConvo.chatId,
       createdOn: new Date(),
-      text:inputRef.current.value
+      text:inputRef.current.value,
+      user:user,
+      chatId:selectedConvo.chatId,
+      chatters:[user._id, selectedConvo.user._id],
+      chatObj:localStorage.getItem('newChat')&&{ //send new convo obj is it is new chat
+        ...newChatStorage, 
+        user: user //switch target user for logged in user as that is what's needed on the recipient's end
+      }
     }
-    socket.emit('chatMessage', newMessage)
+    console.log(newMessage)
+    sendMessage(newMessage)
     inputRef.current.value = ''
+    localStorage.removeItem('newChat')
   }
 
   useEffect(() => {
   
-    const newChatStorage = JSON.parse(localStorage.getItem('newChat'))
     if(newChatStorage){
       setConversations([...conversations, newChatStorage])
       setSelectedConvo(newChatStorage)
@@ -47,7 +54,7 @@ const Chat = () => {
     }
   }, [])
 
-  const renderMessage = (userId, chatId) => {
+  const renderMessage = ( chatId ) => {
     return selectedConvo.chatId === chatId
   }
 
@@ -69,7 +76,7 @@ const Chat = () => {
         <div className={styles.messages}>
           {
             messages.map((message, idx)=>
-              renderMessage(user._id, message.chatId) && 
+              renderMessage(message.chatId) && 
                 <MessageDiv 
                   myId={user._id}
                   key={idx} 
