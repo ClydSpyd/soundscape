@@ -1,7 +1,7 @@
 import { addConversation, messageReceived } from 'actions/chatActions';
-import React, { useContext, useRef, useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import { sendMessage, SocketContext } from 'socket.service';
+import { sendMessage } from 'socket.service';
 import store from 'store';
 
 import styles from './Chat.module.scss';
@@ -21,13 +21,10 @@ const Chat = () => {
   
   const inputRef = useRef()
 
-  const switchCovo = (_id) => {
-    setSelectedConvo(conversations.find(i => i.user._id === _id))
-    console.log(_id)
-  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
     const newMessage = {
       createdOn: new Date(),
       text:inputRef.current.value,
@@ -37,12 +34,13 @@ const Chat = () => {
       isNew:newChatStorage
     }
     
+    inputRef.current.value = ''
+    
     sendMessage(newMessage)
     if(newChatStorage){
       store.dispatch(addConversation(newChatStorage))
       localStorage.removeItem('newChat')
     }
-    inputRef.current.value = ''
   }
 
   useEffect(() => {
@@ -56,9 +54,12 @@ const Chat = () => {
     }
   }, [])
 
-  const renderMessage = ( chatId ) => {
-    return selectedConvo.chatId === chatId
-  }
+  useEffect(() => {
+    if(stateConversations.length>conversations.length){
+      setConversations(stateConversations)
+      setSelectedConvo(stateConversations[stateConversations.length-1])
+    }
+  }, [stateConversations])
 
 
   return (
@@ -68,9 +69,13 @@ const Chat = () => {
 
         {
           conversations.map((item, idx) => 
-            <ConversationDiv 
-              switchCovo={switchCovo}
-              item={item} /> )
+            item?.user&&
+              <ConversationDiv 
+                conversations={conversations}
+                selectedId={selectedConvo.user._id}
+                setSelectedConvo={setSelectedConvo}
+                item={item} />
+          )
         }
 
       </div>
@@ -78,7 +83,7 @@ const Chat = () => {
         <div className={styles.messages}>
           {
             messages.map((message, idx)=>
-              renderMessage(message.chatId) && 
+              selectedConvo?.chatId === message.chatId && 
                 <MessageDiv 
                   myId={user._id}
                   key={idx} 
