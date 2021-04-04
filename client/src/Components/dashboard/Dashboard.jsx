@@ -1,6 +1,9 @@
+import { getChatData } from 'actions/chatActions';
 import React, { useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
+import { initiateSocket } from 'socket.service';
+import store from 'store';
 import { dummyDicoveries } from '../../dummy_data/discoveries';
 import LoaderDiv from '../layout/loaderDiv';
 
@@ -17,8 +20,10 @@ const Dashboard = ({ }) => {
   const { loading, user } = auth;
 
   useEffect(() => { 
-    console.log('ERE')
-  }, []); 
+    if(user){
+      store.dispatch(getChatData(user._id))
+      initiateSocket(auth.user)
+    } }, [user]); 
 
   return (
     <div className="section-container left-top-padd shift-down full-width flex">

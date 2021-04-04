@@ -33,12 +33,6 @@ const App= () => {
   useEffect(()=>{ store.dispatch(loadUser()) },[])
   useEffect(()=>{store.dispatch(updateModalContent({vis:false, component:null}))},[location])
 
-  useEffect(()=>{
-    if(auth?.user){
-      initiateSocket(auth.user)
-    }
-  },[auth])
-
 
   return (
 

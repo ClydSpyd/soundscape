@@ -1,4 +1,4 @@
-import { addConversation, messageReceived } from 'actions/chatActions';
+import { addConversation } from 'actions/chatActions';
 import React, { useRef, useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { sendMessage } from 'socket.service';
@@ -22,7 +22,6 @@ const Chat = () => {
   
   const inputRef = useRef()
 
-
   const handleSubmit = (e) => {
     e.preventDefault();
 
@@ -31,7 +30,7 @@ const Chat = () => {
       text:inputRef.current.value,
       user:user,
       chatId:selectedConvo.chatId,
-      chatters:[user._id, selectedConvo.user._id],
+      chatters:[user._id, selectedConvo.displayUser._id],
       isNew:newChatStorage
     }
 
@@ -41,6 +40,7 @@ const Chat = () => {
     
     if(newChatStorage){
       store.dispatch(addConversation(newChatStorage))
+      // saveNewConvo(newChatStorage)
       localStorage.removeItem('newChat')
     }
   }
@@ -78,8 +78,10 @@ const Chat = () => {
           conversations.map((item, idx) => 
             item?.user&&
               <ConversationDiv 
+                key={idx}
+                idx={idx}
                 conversations={conversations}
-                selectedId={selectedConvo.user._id}
+                selectedId={selectedConvo?.user?._id}
                 setSelectedConvo={setSelectedConvo}
                 item={item} />
           )

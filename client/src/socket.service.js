@@ -7,6 +7,8 @@ export const initiateSocket = (user) => {
   if(!socket && user._id){
     socket = io.connect("http://127.0.0.1:5000");
 
+    socket.emit('userConnect', user)
+
     socket.on('message', message => {
     
       if(message.chatters.includes(user._id)){
@@ -27,6 +29,9 @@ export const initiateSocket = (user) => {
             chatId:message.chatId,
             user:message.user //assign user as me
           }
+
+          // console.log('NEW CONVO')
+          // socket.emit('createNewConversation', newConv)
          
           store.dispatch(addConversation(newConv))
         }
@@ -35,23 +40,27 @@ export const initiateSocket = (user) => {
   }
 }
 
-export const subscribeToChat = (chatId, callback) => {
+// export const subscribeToChat = (chatId, callback) => {
 
-  if(!socket)return true;
+//   if(!socket)return true;
 
-  socket.on('message', message => {
-    console.log('socket event broadcast from server')
-    if(message.chatId === chatId){
-      console.log('socket event received')
-      return callback(null, message)
-    }
-  })
+//   socket.on('message', message => {
+//     console.log('socket event broadcast from server')
+//     if(message.chatId === chatId){
+//       console.log('socket event received')
+//       return callback(null, message)
+//     }
+//   })
 
-}
+// }
 
 export const sendMessage = (newMessage) => {
   if(socket) socket.emit('chatMessage', newMessage)
 }
+
+// export const saveNewConvo = (newConvo) => {
+//   socket.emit('createNewConversation', newConvo)
+// }
 
 
 export const disconnectSocket = () => {

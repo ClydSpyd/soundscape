@@ -27,11 +27,21 @@ const ViewProfile = ({ displayProfile:{ status, location, genres, projects, bio,
     if(!chatData.conversations?.map(i=>i.user._id).includes(_id)){
       const chatId = uuidv4()
       const newChat = {
+        displayUser:{
+          avatar,
+          name,
+          _id,
+        },
         user:{
           avatar,
           name,
           _id,
         },
+        chatters:[{
+          avatar,
+          name,
+          _id,
+        }],
         chatId
       }
       console.log(newChat)

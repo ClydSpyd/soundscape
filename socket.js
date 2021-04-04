@@ -1,15 +1,43 @@
+const Conversation = require("./models/Conversation");
+const Message = require("./models/Message");
 
-const useSocket = (io) => {
+const users = [];
 
+//user connects
+function userConnect(id, user){
+  const newUser = { 
+    socketId:id, 
+    userId:user._id,
+    username:user.name 
+  }
+  users.push(newUser)
+  return newUser
+}
+
+
+//user dicsonnects
+function userDisconnect(id) {
+  const index = users.findIndex(user => user.id === id)
+  if(index!==-1){
+    return users.splice(index, 1)[0]
+  }
+}
+
+
+const useSocket = async (io) => {
   
   io.on('connection', socket => {
-    console.log('new user')
-    console.log(socket.id)
+    
+    socket.on('userConnect', user => {
+      userConnect(socket.id, user)
+      console.log(users)
+    })
 
 
-    socket.on('chatMessage', message => {
-      console.log(message)
+    socket.on('chatMessage', async message => {
       io.emit('message', message)
+      const newMsg = new Message(message)
+      await newMsg.save()
     })
 
 
@@ -17,6 +45,10 @@ const useSocket = (io) => {
   socket.on('disconnect', () => {
 
     console.log('socket ' + socket.id + ' disconnected')
+    const index = users.findIndex(user => user.id === id)
+    if(index!==-1){
+      return users.splice(index, 1)[0]
+    }
   })
   })
 
