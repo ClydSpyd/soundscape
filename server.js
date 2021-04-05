@@ -44,13 +44,12 @@ app.use('/api/posts', require('./routes/posts'))
 app.use('/api/chat', require('./routes/chat'))
 
 
-if(process.env.NODE_ENV === 'production'){
-  app.use(express.static(path.join(__dirname, "client", "build")))
-  
-    app.get('*', function(req, res) {
-    res.sendFile(path.join(__dirname, './client/build/index.html'));
-  });
+if (process.env.NODE_ENV === 'production') {
+	app.use(express.static('client/build'));
 }
+app.get('*', (request, response) => {
+	response.sendFile(path.join(__dirname, 'client/build', 'index.html'));
+});
 
 
 const PORT = process.env.PORT || 5000
