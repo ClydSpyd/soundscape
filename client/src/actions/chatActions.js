@@ -7,7 +7,7 @@ export const getChatData = (_id) => async dispatch => {
   if(token)(setAuthToken(token))
 
   console.log('GET CHAT DATA')
-  const {data} = await axios.get (`http://localhost:5000/api/chat`)
+  const {data} = await axios.get (`/api/chat`)
   const dupeArray = [...data]
   console.log(data)
 
