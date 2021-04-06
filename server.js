@@ -45,6 +45,7 @@ app.use('/api/chat', require('./routes/chat'))
 
 
 if (process.env.NODE_ENV === 'production') {
+  //serve static 
 	app.use(express.static('client/build'));
 }
 app.get('*', (request, response) => {
