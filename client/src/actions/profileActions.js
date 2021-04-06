@@ -9,7 +9,7 @@ export const getProfile = (profileId) => async dispatch => {
 
   console.log(profileId)
 
-  const fetchUrl = profileId ? `http://localhost:5000/api/profile/${profileId}` : 'http://localhost:5000/api/profile'
+  const fetchUrl = profileId ? `api/profile/${profileId}` : 'api/profile'
 
   console.log(fetchUrl)
 
@@ -62,7 +62,7 @@ export const saveProfile = ( formData ) => async dispatch => {
 
   try {
 
-    const res = await axios.post('http://localhost:5000/api/profile', body, config);
+    const res = await axios.post('api/profile', body, config);
 
     console.log(res)
     console.log(res.data)
@@ -107,7 +107,7 @@ export const uploadImage = (e, callback) => async dispatch => {
 
   try {
 
-    const res = await axios.post('http://localhost:5000/api/profile/upload_image', data, config);
+    const res = await axios.post('api/profile/upload_image', data, config);
 
     dispatch({ 
       type: "PROFILE_LOADED"
@@ -149,7 +149,7 @@ export const clearProfile = () =>  dispatch => {
 //   try {
     
 
-//     const res = await axios.post('http://localhost:5000/api/profile', body, config);
+//     const res = await axios.post('api/profile', body, config);
 
 //     console.log(res)
 //     dispatch({
