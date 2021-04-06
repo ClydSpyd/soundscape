@@ -43,7 +43,6 @@ app.use('/api/profile', require('./routes/profile'))
 app.use('/api/posts', require('./routes/posts'))
 app.use('/api/chat', require('./routes/chat'))
 
-
 // serve static assets in production
 if(process.env.NODE_ENV === 'production') {
   //set static folder
@@ -54,7 +53,7 @@ if(process.env.NODE_ENV === 'production') {
   })
 }
 
+
 const PORT = process.env.PORT || 5000
 
-server.listen(PORT, ()=>console.log(`Server started on port ${PORT}`))
-
+app.listen(PORT, () => console.log(`Server started on port ${PORT}`))
