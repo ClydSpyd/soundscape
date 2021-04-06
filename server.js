@@ -6,6 +6,7 @@ const storage = multer.memoryStorage();
 const fileUpload = multer({storage});
 const socketio = require('socket.io')
 const useSocket = require('./socket')
+const path = require('path')
 
 const app = express()
 const server = http.createServer(app)
@@ -42,34 +43,18 @@ app.use('/api/profile', require('./routes/profile'))
 app.use('/api/posts', require('./routes/posts'))
 app.use('/api/chat', require('./routes/chat'))
 
+//serve static assets in production
+if(process.env.NODE_ENV==='production'){
+  //set static folder
+  app.use(express.static('client/build'))
+
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'))
+  })
+}
+
 
 const PORT = process.env.PORT || 5000
 
 server.listen(PORT, ()=>console.log(`Server started on port ${PORT}`))
 
-
-
-// const express = require("express");
-// const http = require("http");
-// const socketIo = require("socket.io");
-
-// const port = process.env.PORT || 5000;
-
-// const app = express();
-
-// const server = http.createServer(app);
-
-// const io = socketIo(server);
-
-// let interval;
-
-// io.on("connection", (socket) => {
-//   console.log("New client connected");
-//   socket.on("disconnect", () => {
-//     console.log("Client disconnected");
-//     clearInterval(interval);
-//   });
-// });
-
-
-// server.listen(port, () => console.log(`Listening on port ${port}`));

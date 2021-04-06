@@ -6,11 +6,10 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server",
-    "CORSserver": "nodemon CORSserver",
     "server": "nodemon server",
     "client": "PORT=5001 npm start --prefix client",
-    "cors": "concurrently \"npm run server\" \"npm run client\" \"npm run CORSserver\"",
-    "dev": "concurrently \"npm run server\" \"npm run client\""
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
   },
   "author": "Dave Clydesdale",
   "license": "MIT",
