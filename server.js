@@ -34,7 +34,7 @@ useSocket(io)
 
 // Init middleware
 app.use(express.json({ extended: false })) //body parser
-app.use('/*', fileUpload.single('image'));
+// app.use('/*', fileUpload.single('image'));
 
 // define routes
 app.use('/api/users', require('./routes/user'))
