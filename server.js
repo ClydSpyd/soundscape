@@ -15,9 +15,6 @@ const socketio = require('socket.io')
 const useSocket = require('./socket')
 const io = socketio(server)
 
-
-const dev = app.get('env') !== 'production'
-
 // allow cross-origin requests
 const cors = require('cors');
 app.use(cors());
@@ -39,16 +36,11 @@ app.use('/api/auth', require('./routes/auth'))
 app.use('/api/profile', require('./routes/profile'))
 app.use('/api/posts', require('./routes/posts'))
 
-if(!dev){
+app.use(express.static(path.resolve(__dirname, 'client', 'build')))
 
-  app.use(express.static(path.resolve(__dirname, 'client', 'build')))
-
-  app.get('*', (req, res) => {
-    res.sendFile(path.resplve(__dirname, 'client', 'build', 'index.html'))
-  })
-
-}
-
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'))
+})
 
 const PORT = process.env.PORT || 5000
 
