@@ -15,7 +15,7 @@ const EssentialItem = ({ itemUrl, artist, title, setShowVideo, toggleModalOverla
   })
 
   const getData = async () => {
-      setLinkData(await getLinkPreview("https://damp-chamber-60877.herokuapp.com/"+itemUrl))
+      setLinkData(await getLinkPreview("https://cors-anywhere-dc.herokuapp.com/"+itemUrl))
   }
 
   useEffect(()=>{ getData() },[])

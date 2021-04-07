@@ -6,7 +6,7 @@ export const fetchAllPosts = () => async dispatch => {
   dispatch({ type: "POST_QUERY", })
 
   try {
-    const res = await axios.get('api/posts')
+    const res = await axios.get('/api/posts')
 
     dispatch({ 
       type: 'POSTS_RETREIVED',
@@ -32,7 +32,7 @@ export const fetchSinglePost = (post_id) => async dispatch => {
 
   try {    
     
-    const res = await axios.get(`api/posts/${post_id}`)
+    const res = await axios.get(`/api/posts/${post_id}`)
 
     dispatch({ 
       type: 'POST_RETREIVED',
@@ -65,7 +65,7 @@ export const createNewPost = (postObject) => async dispatch => {
     const config = { headers: { 'Content-Type': 'application/json' } }
     const body = JSON.stringify( postObject )
 
-    const res = await axios.post('api/posts', body, config)
+    const res = await axios.post('/api/posts', body, config)
 
     console.log(res)
 
@@ -92,7 +92,7 @@ export const likePost = ( post_id ) => async dispatch => {
 
   try {
         
-    const res = await axios.post(`api/posts/like/${post_id}`)
+    const res = await axios.post(`/api/posts/like/${post_id}`)
 
     dispatch({ 
       type: 'POST_LIKED',
@@ -114,7 +114,7 @@ export const likePost = ( post_id ) => async dispatch => {
 
 //   try {
 
-//     const res = await axios.post(`api/posts/comment/${post_id}`);
+//     const res = await axios.post(`/api/posts/comment/${post_id}`);
 
 //     dispatch({
 //       type:'COMMENT_POSTED',
@@ -145,10 +145,10 @@ export const postComment = ( postId, commentObject ) => async dispatch => {
     const config = { headers: { 'Content-Type': 'application/json' } }
     const body = JSON.stringify( commentObject )
 
-    console.log(`api/posts/comment/${postId}`)
+    console.log(`/api/posts/comment/${postId}`)
     console.log(body)
 
-    const res = await axios.post(`api/posts/comment/${postId}`, body, config)
+    const res = await axios.post(`/api/posts/comment/${postId}`, body, config)
 
     console.log(res)
     
